@@ -1,0 +1,75 @@
+{
+    "name": "Striim",
+    "description": "Striim (pronounced \"stream\") provides an end-to-end, real-time data integration + streaming analytics platform. Leverage change data capture (CDC) to access data.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/28377-striim.jpg",
+    "tags": [
+        "analysis",
+        "analytics",
+        "data",
+        "have api",
+        "streaming"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/striim\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [
+        {
+            "name": "Striim",
+            "description": null,
+            "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/28377-striim.jpg",
+            "humanURL": "https:\/\/www.striim.com",
+            "baseURL": "",
+            "tags": [],
+            "properties": [
+                {
+                    "type": "x-openapi",
+                    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/1forge\/master\/striim-openapi.json"
+                }
+            ]
+        }
+    ],
+    "include": [],
+    "x-common": [
+        {
+            "type": "Hacker News Search",
+            "url": "Striim"
+        },
+        {
+            "type": "Stack Exchange Search",
+            "url": "Striim"
+        },
+        {
+            "type": "Blog",
+            "url": "https:\/\/www.striim.com\/blog\/"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "https:\/\/www.striim.com\/feed\/"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/webaction"
+        },
+        {
+            "type": "Email",
+            "url": "info@striim.com"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/striim"
+        },
+        {
+            "type": "Reddit Search",
+            "url": "Striim"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/striimteam"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/www.striim.com"
+        }
+    ]
+}
