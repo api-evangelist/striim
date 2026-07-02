@@ -1,0 +1,47 @@
+name: Striim
+description: >-
+  Unified data integration and streaming platform offering change data capture (CDC), real-time streaming analytics, and
+  data validation. Exposes a token-authenticated REST API (WActionStore queries, system health, Application Management)
+  consumed against your own Striim instance or Striim Cloud service.
+url: https://striim.apievangelist.com/apis.yml
+created: '2026-07-02'
+modified: '2026-07-02'
+specificationVersion: '0.21'
+tags:
+  - Data
+  - Streaming
+  - Change Data Capture
+  - Real-time
+  - Data Integration
+  - Streaming Analytics
+apis:
+  - name: Striim Application Management REST API
+    description: >-
+      REST API to create and manage (deploy, start, stop, undeploy, drop) Striim applications, execute TQL commands,
+      retrieve monitoring and file lineage data, plus WActionStore queries (GET /wactions/def, GET /wactions/search) and
+      system health (GET /health). Token-authenticated; endpoints run against your own Striim server/cluster (default
+      port 9080) or Striim Cloud service.
+    humanURL: https://striim.stoplight.io/docs/striim-application-management
+    baseURL: https://striim.stoplight.io
+    tags:
+      - Data
+      - Streaming
+      - Change Data Capture
+      - Real-time
+      - Data Integration
+      - Streaming Analytics
+    properties:
+      - type: Documentation
+        url: https://striim.stoplight.io/docs/striim-application-management
+      - type: Documentation
+        url: https://www.striim.com/docs/en/api-guide.html
+      - type: Documentation
+        url: https://www.striim.com/services-support/documentation/
+maintainers:
+  - FN: Striim
+    url: https://www.striim.com
+generated:
+  by: apis.io/add
+  model: claude-opus-4-8
+  confidence: 80
+  at: '2026-07-02T22:50:20.043Z'
