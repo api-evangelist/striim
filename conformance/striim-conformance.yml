@@ -1,0 +1,34 @@
+generated: '2026-06-20'
+method: derived
+source: apis.yml (API description) ; https://www.striim.com/docs/en/api-guide.html
+# Derived from the API description in apis.yml (token-authenticated REST API,
+# WActionStore queries, Application Management, TQL execution) since no OpenAPI
+# definition is present in this repo. Entries marked conforms:false or unknown
+# where no positive evidence exists — no fabrication.
+standards:
+  - id: rest
+    conforms: true
+    evidence: Token-authenticated REST API over HTTP (default port 9080).
+  - id: bearer-token-auth
+    conforms: true
+    evidence: apis.yml describes token-authenticated endpoints (Authorization token).
+  - id: oauth2
+    conforms: false
+    evidence: Auth is a Striim-issued API token, not OAuth2 flows.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: unknown
+    evidence: No OpenAPI/error schema captured to confirm application/problem+json.
+  - id: json-api
+    conforms: false
+  - id: fhir-r4
+    conforms: false
+  - id: fapi
+    conforms: false
+  - id: scim2
+    conforms: false
+  - id: odata
+    conforms: false
+  - id: psd2
+    conforms: false

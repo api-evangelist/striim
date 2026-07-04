@@ -1,0 +1,25 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  Searched npm, PyPI, Maven Central, NuGet, pkg.go.dev, RubyGems, Packagist,
+  crates.io and the Striim GitHub org (github.com/striim) for first-party client
+  libraries.
+# No first-party Striim client SDK is published to any public package registry.
+# Striim's REST/Tungsten APIs run against your own Striim server/cluster; Striim
+# ships first-party SAMPLE code (not installable packages) via its GitHub org.
+packages: []
+# First-party source-code / sample repositories (github.com/striim). These are
+# reference samples, not registry-installable packages.
+source_repos:
+  - name: rest-api-samples
+    description: Striim REST API samples in various programming languages (v2).
+    url: https://github.com/striim/rest-api-samples
+    official: true
+  - name: Striim-Python-RestAPI-YAML-Jinja
+    description: Python REST API and Tungsten API samples with YAML/Jinja.
+    url: https://github.com/striim/Striim-Python-RestAPI-YAML-Jinja
+    official: true
+  - name: recipes
+    description: Code samples for Striim Recipes.
+    url: https://github.com/striim/recipes
+    official: true

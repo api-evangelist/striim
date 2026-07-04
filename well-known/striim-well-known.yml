@@ -1,0 +1,51 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  Probed /.well-known/* discovery surface on the hosts in apis.yml
+  (www.striim.com, striim.stoplight.io) and the docs host (docs.striim.com).
+# No usable well-known discovery documents were found.
+# - www.striim.com returns HTTP 403 (WAF) to automated probes for every
+#   /.well-known/* path; /security.txt returns 404. No document retrievable.
+# - striim.stoplight.io (Stoplight-hosted docs) returns 404 for all probed paths.
+# - docs.striim.com is a MadCap webhelp system that returns HTTP 200 with an HTML
+#   redirect page (Content-Type: text/html) for EVERY path, including bogus ones,
+#   so its 200s are false positives, not real well-known documents.
+# No raw well-known files were saved.
+hosts:
+  - host: https://www.striim.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+  - host: https://striim.stoplight.io
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://docs.striim.com
+    note: >-
+      Webhelp system returns 200 + HTML redirect for all paths (false positives);
+      no genuine well-known documents present.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        genuine: false
+      - path: /.well-known/openid-configuration
+        status: 200
+        genuine: false

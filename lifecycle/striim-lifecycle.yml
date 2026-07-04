@@ -1,0 +1,25 @@
+generated: '2026-06-20'
+method: searched
+source: >-
+  https://www.striim.com/docs/en/api-guide.html ; github.com/striim/rest-api-samples (v2)
+# Striim's Application Management REST API is versioned in the URI path (v2).
+# The rest-api-samples repo is organized under a v2/ directory and the product
+# documentation tracks Striim Cloud / Platform releases (e.g. 5.4.0).
+versioning:
+  scheme: uri-path
+  current: v2
+  docs: https://www.striim.com/docs/en/api-guide.html
+# No public API deprecation policy, RFC 8594 Sunset/Deprecation header support,
+# published SLA document, or configured public status page was found. The
+# striim.statuspage.io subdomain resolves to Atlassian's generic Statuspage
+# marketing page (not a live Striim status page).
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+# No OpenAPI definition is present in this repo, so no deprecated operations were
+# derived.
+deprecated_operations: []

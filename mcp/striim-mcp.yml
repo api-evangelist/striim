@@ -1,0 +1,22 @@
+generated: '2026-06-20'
+method: searched
+source: https://www.striim.com/press/striim-introduces-mcp-agentlink-for-agentic-applications/
+status: product
+# Striim publishes an MCP capability, "MCP AgentLink" (announced 2025-08-21),
+# rather than a single fixed hosted MCP endpoint. AgentLink streams change data
+# from 100+ sources into secure, governed read-replica "MCP-ready zones" that are
+# exposed to AI agents over the Model Context Protocol, with in-stream masking,
+# enrichment, and validated write-back. The MCP surface is provisioned per
+# customer deployment; there is no single public hosted MCP URL to record.
+server:
+  name: Striim MCP AgentLink
+  transport: http
+  url: null   # provisioned per Striim deployment; no public hosted endpoint
+references:
+  - title: Striim Introduces MCP AgentLink for Agentic Applications (press release)
+    url: https://www.striim.com/press/striim-introduces-mcp-agentlink-for-agentic-applications/
+  - title: The Power of MCP - How Real-Time Context Unlocks Agentic AI (blog)
+    url: https://www.striim.com/blog/the-power-of-mcp-how-real-time-context-unlocks-agentic-ai-for-the-modern-enterprise/
+# No OpenAPI definition is present in this repo, so no candidate tool list was
+# derived from operations.
+tools: []

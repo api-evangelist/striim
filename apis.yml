@@ -5,7 +5,7 @@ description: >-
   consumed against your own Striim instance or Striim Cloud service.
 url: https://striim.apievangelist.com/apis.yml
 created: '2026-07-02'
-modified: '2026-07-02'
+modified: '2026-06-20'
 specificationVersion: '0.21'
 tags:
   - Data
@@ -45,3 +45,18 @@ generated:
   model: claude-opus-4-8
   confidence: 80
   at: '2026-07-02T22:50:20.043Z'
+common:
+  - url: https://www.striim.com/feed/
+    type: Blog
+  - type: Packages
+    url: packages/striim-packages.yml
+  - type: WellKnown
+    url: well-known/striim-well-known.yml
+  - type: MCPServer
+    url: mcp/striim-mcp.yml
+  - type: LLMsTxt
+    url: llms/striim-llms.txt
+  - type: Lifecycle
+    url: lifecycle/striim-lifecycle.yml
+  - type: Conformance
+    url: conformance/striim-conformance.yml
