@@ -46,6 +46,8 @@ generated:
   confidence: 80
   at: '2026-07-02T22:50:20.043Z'
 common:
+  - type: DomainSecurity
+    url: security/striim-domain-security.yml
   - url: https://www.striim.com/feed/
     type: Blog
   - type: Packages
