@@ -1,8 +1,14 @@
 {
   "repo": "striim",
   "feeds": [
-    { "source": "https://www.striim.com/feed/", "feed_url": "https://www.striim.com/feed/", "title": "Striim", "saved": 10 }
+    {
+      "source": "https://www.striim.com/feed/",
+      "feed_url": "https://www.striim.com/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    }
   ],
-  "fetched": "2026-07-04T17:50:51Z",
-  "post_count": 10
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 11
 }
