@@ -1,3 +1,15 @@
+accessModel:
+  pricing: unknown
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Unknown
+  confidence: low
+  source: []
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/striim.png
 name: Striim
 description: >-
   Unified data integration and streaming platform offering change data capture (CDC), real-time streaming analytics, and
