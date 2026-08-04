@@ -1,7 +1,8 @@
 generated: '2026-06-20'
 method: searched
 source: https://www.striim.com/press/striim-introduces-mcp-agentlink-for-agentic-applications/
-status: product
+status: published
+status_raw: product
 # Striim publishes an MCP capability, "MCP AgentLink" (announced 2025-08-21),
 # rather than a single fixed hosted MCP endpoint. AgentLink streams change data
 # from 100+ sources into secure, governed read-replica "MCP-ready zones" that are
