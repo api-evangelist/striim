@@ -15,7 +15,7 @@ description: >-
   Unified data integration and streaming platform offering change data capture (CDC), real-time streaming analytics, and
   data validation. Exposes a token-authenticated REST API (WActionStore queries, system health, Application Management)
   consumed against your own Striim instance or Striim Cloud service.
-url: https://striim.apievangelist.com/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/striim/refs/heads/main/apis.yml
 created: '2026-07-02'
 modified: '2026-06-20'
 specificationVersion: '0.21'
