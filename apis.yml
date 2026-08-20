@@ -23,6 +23,13 @@ tags:
   - Data
   - Streaming
   - Change Data Capture
+  - Real-Time
+  - Data Integration
+  - Streaming Analytics
+tags_raw:
+  - Data
+  - Streaming
+  - Change Data Capture
   - Real-time
   - Data Integration
   - Streaming Analytics
@@ -36,6 +43,13 @@ apis:
     humanURL: https://striim.stoplight.io/docs/striim-application-management
     baseURL: https://striim.stoplight.io
     tags:
+      - Data
+      - Streaming
+      - Change Data Capture
+      - Real-Time
+      - Data Integration
+      - Streaming Analytics
+    tags_raw:
       - Data
       - Streaming
       - Change Data Capture
