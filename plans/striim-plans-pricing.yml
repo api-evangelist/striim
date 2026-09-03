@@ -1,0 +1,40 @@
+generated: '2026-09-03'
+method: searched
+source: https://www.striim.com/pricing/
+plan_count: 4
+plans:
+- name: Striim Developer
+  price: 0
+  currency: USD
+  billing: null
+  included: Up to 25 million events / month
+  overage: null
+  limits: Serverless deployment; community support; trial access to premium, standard and 200+ preview connectors.
+  notes: Free tier, no usage-based charges. Automated data pipelines, serverless stream processing with SQL, OAuth
+    connector support, password vaults.
+- name: Striim Cloud
+  price: null
+  currency: null
+  billing: usage-based ("pay only for the data you move")
+  included: Unlimited data; all premium and standard connectors
+  overage: null
+  limits: Dedicated Cloud deployment; Customer Success and Premium Support; free trial available.
+  notes: Contact-us pricing. SOC 2 Type II / HIPAA / PCI DSS certified, customer-managed encryption, distributed
+    pipelines.
+- name: Striim Platform
+  price: null
+  currency: null
+  billing: license-based (connectors licensed separately)
+  included: Unlimited data
+  overage: null
+  limits: Self-managed on-premise or cloud VM; clustered deployments with HA.
+  notes: Contact-us pricing.
+- name: Validata Platform & Cloud
+  price: null
+  currency: null
+  billing: null
+  included: null
+  overage: null
+  limits: null
+  notes: New product line; sales inquiry required, no published pricing.
+note: Paid tiers are contact-sales; only the Developer tier has a published price (free).

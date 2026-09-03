@@ -1,0 +1,25 @@
+generated: '2026-09-03'
+method: searched
+source: '"Generating code" article in the Striim Stoplight project (documents the mock server) + https://www.striim.com/pricing/
+  (Striim Developer free tier) + live probe of the mock endpoint.'
+mock_server:
+  url: https://stoplight.io/mocks/striim/striim-application-management/42330228
+  provider_documented: true
+  docs: https://striim.stoplight.io/docs/striim-application-management/c30ba3f1894ba-generating-code
+  note: 'Stoplight Prism mock generating sample responses from the OpenAPI. Probed 2026-09-03: returns 401 without
+    the Authorization security requirement — it enforces the spec''s declared auth.'
+  probe:
+    url: https://stoplight.io/mocks/striim/striim-application-management/42330228/applications
+    status: 401
+    fetched: '2026-09-03'
+free_tier:
+  name: Striim Developer
+  price: free
+  quota: Up to 25 million events / month
+  signup: https://www.striim.com/pricing/
+  note: Serverless free tier with trial access to premium, standard and 200+ preview connectors; a live Striim service
+    against which the REST API can be exercised.
+test_credentials:
+  note: No published test tokens or fixture values. The Authorization article shows the token FORMAT (STRIIM-TOKEN
+    + 36-character token) with an illustrative value only; real tokens come from your own Striim service (Console
+    > Services > More > API).

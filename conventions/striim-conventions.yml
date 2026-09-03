@@ -1,0 +1,84 @@
+generated: '2026-09-03'
+method: derived
+source: Derived from openapi/ (3.10.1, 3.10.3, 5.4.0.2) and the Stoplight project articles (Authorization, Generating
+  code) plus https://www.striim.com/docs/en/api-guide.html
+docs: https://www.striim.com/docs/en/api-guide.html
+authentication:
+  style: api-key header
+  header: Authorization
+  format: STRIIM-TOKEN <36-character token>
+  note: Token obtained from the Striim Cloud Console (Services > More > API) or programmatically via a REST login
+    call; see https://www.striim.com/docs/en/api-guide.html. Every operation declares the Authorization apiKey security
+    scheme.
+  artifact: authentication/striim-authentication.yml
+versioning:
+  scheme: product-versioned documentation over a stable /api/v2 base path
+  base_path: /api/v2
+  current_product_version: 5.4.0.2
+  note: The REST surface is versioned with the Striim product release (3.10.1, 3.10.3, 4.x-5.2.x unchanged, 5.4.0.2
+    adds /tqlfiles). The HTTP base path has remained /api/v2.
+content_types:
+  request: application/json
+  response: application/json
+resource_addressing: Applications are addressed by fully qualified name <namespace>.<application> (appFqn); state
+  transitions are sub-resources (/deployment, /sprint) manipulated with POST/DELETE.
+hypermedia: Application responses include a links[] array (rel, allow, href) advertising the state transitions currently
+  available — HATEOAS-style.
+pagination:
+  style: null
+  note: No pagination is documented or declared in the specs; list endpoints return complete collections.
+idempotency:
+  supported: false
+  note: No idempotency key mechanism is documented.
+request_ids:
+  supported: null
+  note: No request-id/trace header is documented.
+error_envelope:
+  shape: application/json
+  artifact: errors/striim-problem-types.yml
+  note: Plain JSON errors; no RFC 9457 problem+json declared.
+rate_limit_signaling:
+  headers: []
+  note: No rate-limit response headers documented; see rate-limits/striim-rate-limits.yml.
+reversibility:
+  grade: documented
+  note: 'Every state-changing lifecycle action has an explicit, documented reversal operation, but the docs state
+    no time windows or conditions beyond application state, so this is graded documented rather than verified. State
+    transitions are guarded server-side: HTTP 412 is returned when an application is not in a state that allows
+    the transition.'
+  write_surfaces:
+  - action: deploy an application
+    operation: ApplicationsDeploymentByAppFqnPost
+    reversal: undeploy an application
+    reversal_operation: ApplicationsDeploymentByAppFqnDelete
+    window: null
+    docs: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  - action: start an application (sprint)
+    operation: ApplicationsSprintByAppFqnPost
+    reversal: stop an application
+    reversal_operation: ApplicationsSprintByAppFqnDelete
+    window: null
+    docs: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  - action: create an application
+    operation: ApplicationsPost
+    reversal: drop an application (and all its components)
+    reversal_operation: ApplicationsByAppFqnDelete
+    window: null
+    docs: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  - action: upload a TQL file
+    operation: TqlFilesUpload
+    reversal: delete a TQL file
+    reversal_operation: TqlFilesDelete
+    window: null
+    docs: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  - action: execute a console or TQL DDL command
+    operation: TungstenCommandExecution
+    reversal: null
+    reversal_operation: null
+    window: null
+    note: Arbitrary DDL execution has no generic undo; individual CREATE/DROP commands are each other's reversals.
+cross_links:
+- errors/striim-problem-types.yml
+- lifecycle/striim-lifecycle.yml
+- authentication/striim-authentication.yml
+- rate-limits/striim-rate-limits.yml

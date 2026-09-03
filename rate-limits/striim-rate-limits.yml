@@ -1,0 +1,11 @@
+generated: '2026-09-03'
+method: searched
+source: https://www.striim.com/docs/en/api-guide.html ; https://www.striim.com/striim-cloud-security/ ; openapi/
+  (no rate-limit headers declared)
+limit_count: 0
+limits: []
+headers: []
+note: No numeric rate limits, windows, or rate-limit response headers are published. The Striim Cloud security page
+  lists "API Rate Limiting" as a platform capability, but no limits, headers (X-RateLimit-*/RateLimit-*/Retry-After)
+  or exhaustion status code are documented anywhere; the API runs on the customer's own Striim service, where limits
+  are deployment-specific.

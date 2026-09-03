@@ -1,18 +1,24 @@
-generated: '2026-06-20'
+generated: '2026-09-03'
 method: searched
 source: >-
-  https://www.striim.com/docs/en/api-guide.html ; github.com/striim/rest-api-samples (v2)
-# Striim's Application Management REST API is versioned in the URI path (v2).
-# The rest-api-samples repo is organized under a v2/ directory and the product
-# documentation tracks Striim Cloud / Platform releases (e.g. 5.4.0).
+  striim.stoplight.io Stoplight project (specs + release-notes articles) ;
+  https://www.striim.com/docs/en/api-guide.html
+# The Application Management REST API is versioned with the Striim product
+# release over a stable /api/v2 base path. Documented spec versions: 3.10.1,
+# 3.10.3 (also applies to 4.x through 5.2.x, which changed nothing but bug
+# fixes), and 5.4.0.2 (adds /tqlfiles). Current documented product release:
+# Striim Cloud 5.4.2.
 versioning:
-  scheme: uri-path
-  current: v2
-  docs: https://www.striim.com/docs/en/api-guide.html
+  scheme: product-release over stable /api/v2 base path
+  current: 5.4.0.2
+  documented_versions:
+    - 3.10.1
+    - 3.10.3
+    - 5.4.0.2
+  docs: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
 # No public API deprecation policy, RFC 8594 Sunset/Deprecation header support,
-# published SLA document, or configured public status page was found. The
-# striim.statuspage.io subdomain resolves to Atlassian's generic Statuspage
-# marketing page (not a live Striim status page).
+# published SLA document, or public status page was found (re-checked 2026-09-03;
+# striim.statuspage.io still resolves to Atlassian's generic marketing page).
 deprecation:
   policy_url: null
   sunset_header: unknown
@@ -20,6 +26,5 @@ sla:
   url: null
   uptime_target: null
 status_page: null
-# No OpenAPI definition is present in this repo, so no deprecated operations were
-# derived.
+# No operation in the three harvested OpenAPI definitions is marked deprecated.
 deprecated_operations: []

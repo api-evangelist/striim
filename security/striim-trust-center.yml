@@ -1,0 +1,35 @@
+generated: '2026-09-03'
+method: searched
+source: https://trust.striim.com/ (probed) ; https://www.striim.com/striim-cloud-security/ ; https://www.striim.com/press/striim-achieves-soc-2-type-ii-certification/
+  ; https://www.striim.com/pricing/
+trust_center:
+  url: https://trust.striim.com/
+  platform: Vanta
+  probe:
+    status: 200
+    fetched: '2026-09-03'
+    note: JS-rendered Vanta trust report; the document list requires a signed GraphQL session, so per-document contents
+      were not extractable anonymously.
+  linked_from: https://www.striim.com/striim-cloud-security/
+certifications:
+- name: SOC 2 Type II
+  evidence: https://www.striim.com/press/striim-achieves-soc-2-type-ii-certification/
+  status: 200
+- name: HIPAA
+  evidence: https://www.striim.com/striim-cloud-security/
+  note: Complies with HIPAA requirements for PHI; will sign Business Associate Agreements (BAA).
+- name: GDPR
+  evidence: https://www.striim.com/striim-cloud-security/
+- name: PCI DSS
+  evidence: https://www.striim.com/pricing/
+  note: Pricing page lists Striim Cloud as "SOC-2 Type II/HIPAA/PCI DSS certified".
+security_capabilities:
+- SAML 2.0 SSO (Okta, Active Directory)
+- Role-Based Access Control
+- Encryption in-flight and at rest (Cloud KMS)
+- TLS 1.3
+- Dedicated VPC per tenant
+- Azure PrivateLink / Google Private Service Connect / AWS PrivateLink
+- IP allowlisting
+- API rate limiting
+- Audit logs

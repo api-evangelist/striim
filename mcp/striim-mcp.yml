@@ -1,4 +1,4 @@
-generated: '2026-06-20'
+generated: '2026-09-03'
 method: searched
 source: https://www.striim.com/press/striim-introduces-mcp-agentlink-for-agentic-applications/
 status: published
@@ -15,6 +15,11 @@ references:
 tools: []
 deployment:
   mode: remote
+  endpoint: null
+  auth: unknown
   verified: searched
-  checked: '2026-08-12'
-  source: catalog MCP census
+  checked: '2026-09-03'
+  note: MCP AgentLink exposes secure, governed data replicas over MCP and is "available today for all Striim Cloud
+    customers" — a tenant-scoped endpoint provisioned inside each customer's Striim Cloud service, not a public
+    URL. No public endpoint, install command, tool list, or auth details are published, so the tool schemas cannot
+    be introspected anonymously.

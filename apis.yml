@@ -22,80 +22,126 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/striim.png
 name: Striim
-description: >-
-  Unified data integration and streaming platform offering change data capture (CDC), real-time streaming analytics, and
-  data validation. Exposes a token-authenticated REST API (WActionStore queries, system health, Application Management)
-  consumed against your own Striim instance or Striim Cloud service.
+description: Unified data integration and streaming platform offering change data capture (CDC), real-time streaming
+  analytics, and data validation. Exposes a token-authenticated REST API (WActionStore queries, system health, Application
+  Management) consumed against your own Striim instance or Striim Cloud service.
 url: https://raw.githubusercontent.com/api-evangelist/striim/refs/heads/main/apis.yml
 created: '2026-07-02'
-modified: '2026-06-20'
+modified: '2026-09-03'
 specificationVersion: '0.23'
 tags:
+- Data
+- Streaming
+- Change Data Capture
+- Real-Time
+- Data Integration
+- Streaming Analytics
+tags_raw:
+- Data
+- Streaming
+- Change Data Capture
+- Real-time
+- Data Integration
+- Streaming Analytics
+apis:
+- name: Striim Application Management REST API
+  description: REST API to create and manage (deploy, start, stop, undeploy, drop) Striim applications, execute
+    TQL commands, retrieve monitoring and file lineage data, plus WActionStore queries (GET /wactions/def, GET /wactions/search)
+    and system health (GET /health). Token-authenticated; endpoints run against your own Striim server/cluster (default
+    port 9080) or Striim Cloud service.
+  humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  baseURL: https://striim.stoplight.io
+  tags:
   - Data
   - Streaming
   - Change Data Capture
   - Real-Time
   - Data Integration
   - Streaming Analytics
-tags_raw:
+  tags_raw:
   - Data
   - Streaming
   - Change Data Capture
   - Real-time
   - Data Integration
   - Streaming Analytics
-apis:
-  - name: Striim Application Management REST API
-    description: >-
-      REST API to create and manage (deploy, start, stop, undeploy, drop) Striim applications, execute TQL commands,
-      retrieve monitoring and file lineage data, plus WActionStore queries (GET /wactions/def, GET /wactions/search) and
-      system health (GET /health). Token-authenticated; endpoints run against your own Striim server/cluster (default
-      port 9080) or Striim Cloud service.
-    humanURL: https://striim.stoplight.io/docs/striim-application-management
-    baseURL: https://striim.stoplight.io
-    tags:
-      - Data
-      - Streaming
-      - Change Data Capture
-      - Real-Time
-      - Data Integration
-      - Streaming Analytics
-    tags_raw:
-      - Data
-      - Streaming
-      - Change Data Capture
-      - Real-time
-      - Data Integration
-      - Streaming Analytics
-    properties:
-      - type: Documentation
-        url: https://striim.stoplight.io/docs/striim-application-management
-      - type: Documentation
-        url: https://www.striim.com/docs/en/api-guide.html
-      - type: Documentation
-        url: https://www.striim.com/services-support/documentation/
+  properties:
+  - type: APIReference
+    url: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  - type: Documentation
+    url: https://www.striim.com/docs/en/api-guide.html
+  - type: Documentation
+    url: https://www.striim.com/services-support/documentation/
+  - type: OpenAPI
+    url: openapi/striim-tql-files-rest-api-5-4-0-2-openapi.yml
+  - type: OpenAPI
+    url: openapi/striim-application-management-rest-api-3-10-3-openapi.yml
+  - type: OpenAPI
+    url: openapi/striim-application-management-rest-api-3-10-1-openapi.yml
+  - type: Overlay
+    url: overlays/striim-tql-files-5-4-0-2-overlay.yaml
+  - type: Overlay
+    url: overlays/striim-application-management-3-10-3-overlay.yaml
+  - type: Overlay
+    url: overlays/striim-application-management-3-10-1-overlay.yaml
 maintainers:
-  - FN: Striim
-    url: https://www.striim.com
+- FN: Striim
+  url: https://www.striim.com
+  email: support@striim.com
 generated:
   by: apis.io/add
   model: claude-opus-4-8
   confidence: 80
   at: '2026-07-02T22:50:20.043Z'
 common:
-  - type: DomainSecurity
-    url: security/striim-domain-security.yml
-  - url: https://www.striim.com/feed/
-    type: Blog
-  - type: Packages
-    url: packages/striim-packages.yml
-  - type: WellKnown
-    url: well-known/striim-well-known.yml
-  - type: MCPServer
-    url: mcp/striim-mcp.yml
-  - type: LLMsTxt
-    url: llms/striim-llms.txt
-  - type: Lifecycle
-    url: lifecycle/striim-lifecycle.yml
-  - type: Conformance
-    url: conformance/striim-conformance.yml
+- type: Authentication
+  url: authentication/striim-authentication.yml
+- type: DomainSecurity
+  url: security/striim-domain-security.yml
+- url: https://www.striim.com/feed/
+  type: Blog
+- type: Packages
+  url: packages/striim-packages.yml
+- type: MCPServer
+  url: mcp/striim-mcp.yml
+- type: LLMsTxt
+  url: llms/striim-llms.txt
+- type: Lifecycle
+  url: lifecycle/striim-lifecycle.yml
+- type: Conformance
+  url: conformance/striim-conformance.yml
+- type: ErrorCatalog
+  url: errors/striim-problem-types.yml
+- type: Conventions
+  url: conventions/striim-conventions.yml
+- type: ChangeLog
+  url: changelog/striim-changelog.yml
+- type: DataModel
+  url: data-model/striim-data-model.yml
+- type: Plans
+  url: plans/striim-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/striim-rate-limits.yml
+- type: Sandbox
+  url: sandbox/striim-sandbox.yml
+- type: TrustCenter
+  url: security/striim-trust-center.yml
+- type: Compliance
+  url: security/striim-trust-center.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Pricing
+  url: https://www.striim.com/pricing/
+- type: TermsOfService
+  url: https://www.striim.com/eula/
+- type: PrivacyPolicy
+  url: https://www.striim.com/privacy-policy/
+- type: GitHubOrganization
+  url: https://github.com/striim
+- type: Support
+  url: https://www.striim.com/contact-us/
+x-enrichment:
+  date: '2026-09-03'
+  status: enriched
+  artifacts_added: 19
+  pass: local-v1

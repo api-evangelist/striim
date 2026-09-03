@@ -1,0 +1,27 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Striim Application Management REST API version 3.10.3
+  version: 1.0.0
+extends: openapi/striim-application-management-rest-api-3-10-3-openapi.yml
+x-generated: '2026-09-03'
+x-method: generated
+x-source: 'Generated from the harvested Stoplight project (striim.stoplight.io) articles: Authorization, Generating
+  code, and the Index page.'
+actions:
+- target: $.info
+  update:
+    x-apis-json:
+      provider: striim
+      catalog: https://apis.io/providers/striim
+    x-auth-note: All calls require an Authorization header of the form "STRIIM-TOKEN <36-character-token>". See
+      https://www.striim.com/docs/en/api-guide.html for obtaining a token.
+- target: $.info
+  update:
+    x-server-note: The API runs on the customer's own Striim server/cluster or Striim Cloud service (default port
+      9080). Replace localhost with the IP address and port of your Striim server; use https where TLS is configured.
+      A Stoplight-hosted mock server is available at https://stoplight.io/mocks/striim/striim-application-management/42330228.
+- target: $
+  update:
+    externalDocs:
+      url: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+      description: Interactive Striim Application Management API documentation

@@ -1,0 +1,13 @@
+generated: '2026-09-03'
+method: generated
+source: Generated from openapi/ (harvested striim.stoplight.io specs); operationIds verified against the specs. No provider-published Agent Skills or AGENTS.md found (www.striim.com/llms.txt 404, GitHub org checked).
+skills:
+  - name: striim-deploy-and-run-application
+    file: striim-deploy-and-run-application.md
+    api: Striim Application Management REST API
+  - name: striim-manage-tql-files
+    file: striim-manage-tql-files.md
+    api: Striim TQL Files REST API
+  - name: striim-execute-console-commands
+    file: striim-execute-console-commands.md
+    api: Striim Application Management REST API

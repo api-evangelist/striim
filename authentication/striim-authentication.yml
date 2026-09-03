@@ -1,0 +1,26 @@
+generated: '2026-09-03'
+method: searched
+source: openapi/striim-application-management-rest-api-3-10-1-openapi.yml, openapi/striim-application-management-rest-api-3-10-3-openapi.yml,
+  openapi/striim-tql-files-rest-api-5-4-0-2-openapi.yml ; Authorization article (striim.stoplight.io/docs/striim-application-management/ZG9jOjUxODM1Mjk-authorization)
+  ; https://www.striim.com/docs/en/api-guide.html
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: Authorization
+  type: apiKey
+  in: header
+  parameter: Authorization
+  sources:
+  - openapi/striim-application-management-rest-api-3-10-1-openapi.yml
+  - openapi/striim-application-management-rest-api-3-10-3-openapi.yml
+  - openapi/striim-tql-files-rest-api-5-4-0-2-openapi.yml
+  format: STRIIM-TOKEN <36-character token>
+  description: 'A 36-character authentication token must be included in all API calls, sent as "Authorization: STRIIM-TOKEN
+    <token>". Tokens are obtained from the Striim Cloud Console (Services > More > API) or programmatically via
+    a REST login call.'
+docs: https://www.striim.com/docs/en/api-guide.html
+notes: The API also accepts the token as a `token` query parameter per the API Guide, but the OpenAPI definitions
+  declare only the Authorization header scheme.

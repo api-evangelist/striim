@@ -1,0 +1,36 @@
+generated: '2026-09-03'
+method: searched
+source: 'Release-notes articles in the Striim Application Management Stoplight project (striim.stoplight.io/docs/striim-application-management):
+  3.10.1, 3.10.3, 4.2.0, 4.x-5.2.x note, 5.4.0.2.'
+scheme: product-release versioning (API documented per Striim release)
+current_version: 5.4.0.2
+note: Striim publishes API release notes as articles in the Stoplight docs project; the articles are undated, so
+  entry dates are null. The API was explicitly unchanged across 4.x, 5.1.x and 5.2.x.
+entries:
+- version: 5.4.0.2
+  date: null
+  breaking: false
+  highlights:
+  - 'New /tqlfiles endpoints: upload, list, and delete TQL files (TqlFilesUpload, TqlFilesList, TqlFilesDelete).'
+- version: 4.2.0
+  date: null
+  breaking: true
+  highlights:
+  - Fixed POST /tungsten commands that returned invalid JSON; code consuming the old malformed output may need rewriting.
+- version: 4.x-5.2.x
+  date: null
+  breaking: false
+  highlights:
+  - No API changes other than bug fixes across 4.x, 5.1.x and 5.2.x; version 3.10.3 documentation applies.
+- version: 3.10.3
+  date: null
+  breaking: false
+  highlights:
+  - POST /tungsten executes a console or TQL DDL command.
+- version: 3.10.1
+  date: null
+  breaking: false
+  highlights:
+  - POST /applications/templates/definition creates an application template.
+  - GET /applications/templates/{templateId} returns two additional templates (SQL Server to PostgreSQL and S3).
+  - 'DEV-16642 resolved: /applications/templates/{templateId} returns TemplateID instead of TemplateName.'

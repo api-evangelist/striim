@@ -1,0 +1,146 @@
+generated: '2026-09-03'
+method: derived
+source: openapi/striim-tql-files-rest-api-5-4-0-2-openapi.yml (components.schemas $ref graph; the 3.10.x specs declare
+  the same entities minus TqlFile*).
+entities:
+- name: TqlFilesResponse
+  fields: []
+- name: TqlFilesListResponse
+  fields: []
+- name: TqlFileInfo
+  fields:
+  - name
+  - size
+  - lastModified
+- name: DeploymentPlan
+  fields:
+  - deploymentGroupName
+  - deploymentType
+  - flows
+- name: FlowDeploymentPlan
+  fields:
+  - flowName
+  - deploymentGroupName
+  - deploymentType
+- name: DeploymentType
+  fields: []
+- name: Application
+  fields:
+  - namespace
+  - name
+  - status
+  - links
+- name: Link
+  fields:
+  - rel
+  - allow
+  - href
+- name: ApplicationParameters
+  fields:
+  - templateId
+  - templateDefinition
+  - applicationName
+  - applicationSettings
+  - sourceParameters
+  - targetParameters
+  - parserParameters
+  - formatterParameters
+- name: ApplicationSettings
+  fields:
+  - recovery
+  - encryption
+  - exceptionHandlers
+- name: Recovery
+  fields:
+  - enabled
+  - period
+- name: TemplateDefinition
+  fields:
+  - sourceAdapter
+  - formatter
+  - parser
+  - targetAdapter
+- name: Template
+  fields:
+  - templateId
+  - sourceParameters
+  - targetParameters
+  - formatterParameters
+  - parserParameters
+- name: TemplateParameter
+  fields:
+  - name
+  - parameterType
+  - required
+  - defaultValue
+- name: ParameterType
+  fields: []
+- name: OracleLineageMetadataObject
+  fields:
+  - fileName
+  - status
+  - directoryName
+  - fileCreationTime
+  - numberOfEvents
+  - threadId
+  - firstChangeNumber
+  - lastChangeNumber
+- name: FileLineageMetadataObject
+  fields:
+  - fileName
+  - status
+  - directoryName
+  - fileCreationTime
+  - numberOfEvents
+relationships:
+- from: DeploymentPlan
+  relationship: has_one
+  to: DeploymentType
+  via: deploymentType
+- from: DeploymentPlan
+  relationship: has_many
+  to: FlowDeploymentPlan
+  via: flows
+- from: FlowDeploymentPlan
+  relationship: has_one
+  to: DeploymentType
+  via: deploymentType
+- from: Application
+  relationship: has_many
+  to: Link
+  via: links
+- from: ApplicationParameters
+  relationship: has_one
+  to: TemplateDefinition
+  via: templateDefinition
+- from: ApplicationParameters
+  relationship: has_one
+  to: ApplicationSettings
+  via: applicationSettings
+- from: ApplicationSettings
+  relationship: has_one
+  to: Recovery
+  via: recovery
+- from: Template
+  relationship: has_many
+  to: TemplateParameter
+  via: sourceParameters
+- from: Template
+  relationship: has_many
+  to: TemplateParameter
+  via: targetParameters
+- from: Template
+  relationship: has_many
+  to: TemplateParameter
+  via: formatterParameters
+- from: Template
+  relationship: has_many
+  to: TemplateParameter
+  via: parserParameters
+- from: TemplateParameter
+  relationship: has_one
+  to: ParameterType
+  via: parameterType
+notes: Application carries HATEOAS links[] (rel/allow/href) advertising the state transitions available (deployment,
+  sprint). Applications are addressed by fully qualified name <namespace>.<application>. No id-prefix scheme is
+  published.

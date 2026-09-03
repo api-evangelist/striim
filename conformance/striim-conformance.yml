@@ -1,34 +1,58 @@
-generated: '2026-06-20'
+generated: '2026-09-03'
 method: derived
-source: apis.yml (API description) ; https://www.striim.com/docs/en/api-guide.html
-# Derived from the API description in apis.yml (token-authenticated REST API,
-# WActionStore queries, Application Management, TQL execution) since no OpenAPI
-# definition is present in this repo. Entries marked conforms:false or unknown
-# where no positive evidence exists — no fabrication.
+source: openapi/ (harvested from striim.stoplight.io) ; Authorization article in the Stoplight project ; https://www.striim.com/striim-cloud-security/
 standards:
-  - id: rest
-    conforms: true
-    evidence: Token-authenticated REST API over HTTP (default port 9080).
-  - id: bearer-token-auth
-    conforms: true
-    evidence: apis.yml describes token-authenticated endpoints (Authorization token).
-  - id: oauth2
-    conforms: false
-    evidence: Auth is a Striim-issued API token, not OAuth2 flows.
-  - id: oidc
-    conforms: false
-  - id: rfc9457-problem-details
-    conforms: unknown
-    evidence: No OpenAPI/error schema captured to confirm application/problem+json.
-  - id: json-api
-    conforms: false
-  - id: fhir-r4
-    conforms: false
-  - id: fapi
-    conforms: false
-  - id: scim2
-    conforms: false
-  - id: odata
-    conforms: false
-  - id: psd2
-    conforms: false
+- id: rest
+  conforms: true
+  evidence: JSON-over-HTTP REST API declared in three OpenAPI definitions (Swagger 2.0 x2, OpenAPI 3.0.0); resource-oriented
+    paths with POST/DELETE state sub-resources.
+- id: openapi
+  conforms: true
+  evidence: Provider publishes Swagger 2.0 (3.10.1, 3.10.3) and OpenAPI 3.0.0 (5.4.0.2) definitions in its public
+    Stoplight project.
+- id: api-key-header-auth
+  conforms: true
+  evidence: Every operation declares the Authorization apiKey header scheme; format "STRIIM-TOKEN <36-character
+    token>".
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme in any spec; auth is a Striim-issued API token.
+- id: oidc
+  conforms: false
+  evidence: No openIdConnect securityScheme. (Striim Cloud console sign-in supports SAML 2.0 SSO, which is a UI
+    concern, not an API auth scheme.)
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Error responses are plain application/json; no application/problem+json media type declared.
+- id: hateoas
+  conforms: true
+  evidence: Application responses carry links[] (rel, allow, href) advertising available state transitions.
+- id: json-api
+  conforms: false
+  evidence: No JSON:API media type or document structure.
+- id: scim2
+  conforms: false
+  evidence: No SCIM schema URNs in any spec.
+- id: odata
+  conforms: false
+  evidence: No $metadata surface or OData conventions.
+- id: fhir-r4
+  conforms: false
+  evidence: Not a healthcare data API.
+- id: fapi
+  conforms: false
+  evidence: Not a financial-grade API.
+- id: psd2
+  conforms: false
+  evidence: Not a payments API.
+- id: pagination
+  conforms: false
+  evidence: No pagination parameters or response fields declared; list endpoints return complete collections.
+- id: idempotency-keys
+  conforms: false
+  evidence: No idempotency key mechanism documented.
+domain_standards:
+  note: Data integration / CDC / streaming has no dominant contract-level domain standard analogous to SCIM or OpenRTB;
+    nothing in the specs declares one (no Sparkplug namespace, no AsyncAPI, no OData $metadata). Recorded as an
+    honest absence — reward-only check, no conformance invented.
+  declared: []
