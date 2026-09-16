@@ -44,46 +44,118 @@ tags_raw:
 - Data Integration
 - Streaming Analytics
 apis:
-- name: Striim Application Management REST API
-  description: REST API to create and manage (deploy, start, stop, undeploy, drop) Striim applications, execute
-    TQL commands, retrieve monitoring and file lineage data, plus WActionStore queries (GET /wactions/def, GET /wactions/search)
-    and system health (GET /health). Token-authenticated; endpoints run against your own Striim server/cluster (default
-    port 9080) or Striim Cloud service.
+- aid: striim:striim-application-api
+  name: Striim Application API
+  description: The application API from Striim — 4 operation(s) for application.
   humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
   baseURL: https://striim.stoplight.io
   tags:
-  - Data
-  - Streaming
-  - Change Data Capture
-  - Real-Time
-  - Data Integration
-  - Streaming Analytics
-  tags_raw:
-  - Data
-  - Streaming
-  - Change Data Capture
-  - Real-time
-  - Data Integration
-  - Streaming Analytics
+  - application
   properties:
+  - type: OpenAPI
+    url: openapi/striim-application-api-openapi.yml
   - type: APIReference
     url: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
   - type: Documentation
     url: https://www.striim.com/docs/en/api-guide.html
   - type: Documentation
     url: https://www.striim.com/services-support/documentation/
+- aid: striim:striim-applicationmetadata-api
+  name: Striim Application Metadata API
+  description: The applicationMetadata API from Striim — 2 operation(s) for applicationmetadata.
+  humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  baseURL: https://striim.stoplight.io
+  tags:
+  - applicationMetadata
+  properties:
   - type: OpenAPI
-    url: openapi/striim-tql-files-rest-api-5-4-0-2-openapi.yml
+    url: openapi/striim-applicationmetadata-api-openapi.yml
+  - type: APIReference
+    url: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  - type: Documentation
+    url: https://www.striim.com/docs/en/api-guide.html
+  - type: Documentation
+    url: https://www.striim.com/services-support/documentation/
+- aid: striim:striim-checkpoint-api
+  name: Striim Checkpoint API
+  description: The checkpoint API from Striim — 1 operation(s) for checkpoint.
+  humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  baseURL: https://striim.stoplight.io
+  tags:
+  - checkpoint
+  properties:
   - type: OpenAPI
-    url: openapi/striim-application-management-rest-api-3-10-3-openapi.yml
+    url: openapi/striim-checkpoint-api-openapi.yml
+  - type: APIReference
+    url: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  - type: Documentation
+    url: https://www.striim.com/docs/en/api-guide.html
+  - type: Documentation
+    url: https://www.striim.com/services-support/documentation/
+- aid: striim:striim-monitoring-api
+  name: Striim Monitoring API
+  description: The monitoring API from Striim — 1 operation(s) for monitoring.
+  humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  baseURL: https://striim.stoplight.io
+  tags:
+  - monitoring
+  properties:
   - type: OpenAPI
-    url: openapi/striim-application-management-rest-api-3-10-1-openapi.yml
-  - type: Overlay
-    url: overlays/striim-tql-files-5-4-0-2-overlay.yaml
-  - type: Overlay
-    url: overlays/striim-application-management-3-10-3-overlay.yaml
-  - type: Overlay
-    url: overlays/striim-application-management-3-10-1-overlay.yaml
+    url: openapi/striim-monitoring-api-openapi.yml
+  - type: APIReference
+    url: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  - type: Documentation
+    url: https://www.striim.com/docs/en/api-guide.html
+  - type: Documentation
+    url: https://www.striim.com/services-support/documentation/
+- aid: striim:striim-template-api
+  name: Striim Template API
+  description: The template API from Striim — 3 operation(s) for template.
+  humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  baseURL: https://striim.stoplight.io
+  tags:
+  - template
+  properties:
+  - type: OpenAPI
+    url: openapi/striim-template-api-openapi.yml
+  - type: APIReference
+    url: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  - type: Documentation
+    url: https://www.striim.com/docs/en/api-guide.html
+  - type: Documentation
+    url: https://www.striim.com/services-support/documentation/
+- aid: striim:striim-tqlfiles-api
+  name: Striim Tqlfiles API
+  description: The tqlfiles API from Striim — 2 operation(s) for tqlfiles.
+  humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  baseURL: https://striim.stoplight.io
+  tags:
+  - tqlfiles
+  properties:
+  - type: OpenAPI
+    url: openapi/striim-tqlfiles-api-openapi.yml
+  - type: APIReference
+    url: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  - type: Documentation
+    url: https://www.striim.com/docs/en/api-guide.html
+  - type: Documentation
+    url: https://www.striim.com/services-support/documentation/
+- aid: striim:striim-tungsten-api
+  name: Striim Tungsten API
+  description: The tungsten API from Striim — 1 operation(s) for tungsten.
+  humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  baseURL: https://striim.stoplight.io
+  tags:
+  - tungsten
+  properties:
+  - type: OpenAPI
+    url: openapi/striim-tungsten-api-openapi.yml
+  - type: APIReference
+    url: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
+  - type: Documentation
+    url: https://www.striim.com/docs/en/api-guide.html
+  - type: Documentation
+    url: https://www.striim.com/services-support/documentation/
 maintainers:
 - FN: Striim
   url: https://www.striim.com
@@ -94,6 +166,12 @@ generated:
   confidence: 80
   at: '2026-07-02T22:50:20.043Z'
 common:
+- type: Overlay
+  url: overlays/striim-tql-files-5-4-0-2-overlay.yaml
+- type: Overlay
+  url: overlays/striim-application-management-3-10-3-overlay.yaml
+- type: Overlay
+  url: overlays/striim-application-management-3-10-1-overlay.yaml
 - type: Website
   url: https://www.striim.com/
 - type: Authentication
