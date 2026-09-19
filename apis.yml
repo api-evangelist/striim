@@ -50,6 +50,8 @@ apis:
   humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
   baseURL: https://striim.stoplight.io
   tags:
+  - Application
+  tags_raw:
   - application
   properties:
   - type: OpenAPI
@@ -65,7 +67,8 @@ apis:
   description: The applicationMetadata API from Striim — 2 operation(s) for applicationmetadata.
   humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
   baseURL: https://striim.stoplight.io
-  tags:
+  tags: []
+  tags_raw:
   - applicationMetadata
   properties:
   - type: OpenAPI
@@ -82,6 +85,8 @@ apis:
   humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
   baseURL: https://striim.stoplight.io
   tags:
+  - Check Point
+  tags_raw:
   - checkpoint
   properties:
   - type: OpenAPI
@@ -98,6 +103,8 @@ apis:
   humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
   baseURL: https://striim.stoplight.io
   tags:
+  - Monitoring
+  tags_raw:
   - monitoring
   properties:
   - type: OpenAPI
@@ -114,6 +121,8 @@ apis:
   humanURL: https://striim.stoplight.io/docs/striim-application-management/4b402d5ab3edd-index
   baseURL: https://striim.stoplight.io
   tags:
+  - Templates
+  tags_raw:
   - template
   properties:
   - type: OpenAPI
