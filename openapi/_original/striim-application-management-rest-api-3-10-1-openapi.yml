@@ -1,13 +1,19 @@
+# x-archived-from: striim-application-management-rest-api-3-10-1-openapi.yml
+# x-archived-on: 2026-09-16
 swagger: '2.0'
 info:
-  version: 3.10.3
-  title: Striim Application Management REST API version 3.10.3
-  description: Use this version of the API with Striim versions 3.10.3 or later.
+  version: 3.10.1
+  title: Striim Application Management REST API version 3.10.1
+  description: |-
+    Use this version of the API with Striim versions 3.10.1 or later.
+
+    Code generation is currently not working for this version.
   contact:
     name: Striim support
     url: 'https://go2.striim.com/request-support-striim'
     email: support@striim.com
   termsOfService: 'http://www.striim.com/eula/'
+host: 'localhost:9080'
 securityDefinitions:
   Authorization:
     type: apiKey
@@ -18,6 +24,7 @@ securityDefinitions:
     x-skip-client-authentication: false
 schemes:
   - http
+  - https
 consumes:
   - application/json
 produces:
@@ -208,20 +215,20 @@ paths:
         To deploy Samples.MultiLogApp, use the **Body**:
 
         ```
-        [{"flowName":"Samples.ApiFlow","deploymentGroupName":"default","deploymentType":"ANY"},
-        {"flowName":"Samples.CompanyApiFlow","deploymentGroupName":"default","deploymentType":"ANY"},
-        {"flowName":"Samples.ErrorHandling","deploymentGroupName":"default","deploymentType":"ANY"},
-        {"flowName":"Samples.ErrorsAndWarnings","deploymentGroupName":"default","deploymentType":"ANY"},
-        {"flowName":"Samples.HackerCheck","deploymentGroupName":"default","deploymentType":"ANY"},
-        {"flowName":"Samples.InfoFlow","deploymentGroupName":"default","deploymentType":"ANY"},
-        {"flowName":"Samples.LargeRTCheck","deploymentGroupName":"default","deploymentType":"ANY"},
-        {"flowName":"Samples.MonitorLogs","deploymentGroupName":"default","deploymentType":"ANY"},
-        {"flowName":"Samples.ProxyCheck","deploymentGroupName":"default","deploymentType":"ANY"},
-        {"flowName":"Samples.UserApiFlow","deploymentGroupName":"default","deploymentType":"ANY"},
-        {"flowName":"Samples.WarningHandling","deploymentGroupName":"default","deploymentType":"ANY"},
-        {"flowName":"Samples.ZeroContentCheck","deploymentGroupName":"default","deploymentType":"ANY"}]
+        [{"flowName":"ApiFlow","deploymentGroupName":"default","deploymentType":"ANY"},
+        {"flowName":"CompanyApiFlow","deploymentGroupName":"default","deploymentType":"ANY"},
+        {"flowName":"ErrorHandling","deploymentGroupName":"default","deploymentType":"ANY"},
+        {"flowName":"ErrorsAndWarnings","deploymentGroupName":"default","deploymentType":"ANY"},
+        {"flowName":"HackerCheck","deploymentGroupName":"default","deploymentType":"ANY"},
+        {"flowName":"InfoFlow","deploymentGroupName":"default","deploymentType":"ANY"},
+        {"flowName":"LargeRTCheck","deploymentGroupName":"default","deploymentType":"ANY"},
+        {"flowName":"MonitorLogs","deploymentGroupName":"default","deploymentType":"ANY"},
+        {"flowName":"ProxyCheck","deploymentGroupName":"default","deploymentType":"ANY"},
+        {"flowName":"UserApiFlow","deploymentGroupName":"default","deploymentType":"ANY"},
+        {"flowName":"WarningHandling","deploymentGroupName":"default","deploymentType":"ANY"},
+        {"flowName":"ZeroContentCheck","deploymentGroupName":"default","deploymentType":"ANY"}]
         ```
-        If a flow is in the authentication user's namespace, you may omit the namespace. `ANY` is equivalent to `ON ONE`.
+        Note that for the flow names you must not specify the namespace. `ANY` is equivalent to `ON ONE`.
 
         For more information, see [Managing deployment groups](https://docs.striim.com/en/managing-deployment-groups.html).
       summary: deploy an application
@@ -698,77 +705,6 @@ paths:
         AllowDynamicQueryParameters: false
         AllowDynamicFormParameters: false
         IsMultiContentStreaming: false
-  /tungsten:
-    post:
-      description: |-
-        Executes a console or TQL DDL command. See [Console commands](https://www.striim.com/docs/en/console-commands.html) and [DDL and component reference](https://www.striim.com/docs/en/ddl-and-component-reference.html).
-
-        * For the `EXPORT <namespace>.<application>` command, the TQL for the specified application will be attached to the response. For `EXPORT ALL` the attachment will be a ZIP file.
-        * The `HISTORY` command is not supported.
-        * When creating an application, all commands from `USE <namespace>; CREATE APPLICATION <name>;` to `END APPLICATION <name>;` must be included in the same API call.
-        * When altering an application, all commands from `ALTER APPLICATION <name>;` to `ALTER APPLICATION <name> RECOMPILE;` must be included in the same call.
-
-        If the command has any output, it will be returned as `output`. For example:
-
-        ```
-        curl --request POST \
-        >    --url http://localhost:9080/api/v2/tungsten \
-        >    --header 'authorization: STRIIM-TOKEN 01eb29d5-75e9-9fb1-9b31-8cae4cf129d6' \
-        >    --header 'content-type: text/plain' \
-        >    --data 'STATUS Samples.MultiLogApp;'
-        [{"command":"STATUS Samples.MultiLogApp","executionStatus":"Success","output":{"applicationName":"MultiLogApp","status":"CREATED"},"responseCode":200}]
-        ```
-
-        If the command fails, the return will include `failuremessage`. For example:
-
-        ```
-        url --request POST \
-        >    --url http://localhost:9080/api/v2/tungsten \
-        >    --header 'authorization: STRIIM-TOKEN 01eb29d5-75e9-9fb1-9b31-8cae4cf129d6' \
-        >    --header 'content-type: text/plain' \
-        >    --data 'CREATE NAMESPACE Samples;'
-        [{"command":"CREATE NAMESPACE Samples","executionStatus":"Failure","failureMessage":"Namespace Samples already exists","responseCode":400}]
-        ```
-
-        When importing an application that requires a passphrase, append the passphrase to the end of the URL and specify the file to be uploaded using `--data-binary`, for example:
-
-        ```
-        url --request POST \
-        >    --url http://localhost:9080/api/v2/tungsten?passphrase=******** \
-        >    --header 'authorization: STRIIM-TOKEN 01eb29d5-75e9-9fb1-9b31-8cae4cf129d6' \
-        >    --header 'content-type: text/plain' \
-        >    --data-binary @MyApp.tql
-        ```
-      summary: execute a console or TQL command
-      tags:
-        - tungsten
-      operationId: TungstenCommandExecution
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Command is executed successfully.
-          examples: {}
-        '400':
-          description: Compilation of command to be executed failed. Typical reason would be a missing ‘;’. Other reasons would be a missing parameter or using an incorrect keyword.
-          examples: {}
-        '401':
-          description: Specified authentication token as part of authorization header is invaid or incorrect.
-          examples: {}
-        '404':
-          description: Most of the commands operate on any of the Striim’s component. This indicates that specified resource/component as part of the command doesn’t exista anymore. Optionally this error code is also returned when requested information isn’t ready for a specified component.
-          examples: {}
-        '500':
-          description: Internal Server error
-          examples: {}
-      security:
-        - Authorization: []
-      x-unitTests: []
-      x-operation-settings:
-        CollectParameters: false
-        AllowDynamicQueryParameters: false
-        AllowDynamicFormParameters: false
-        IsMultiContentStreaming: false
 definitions:
   DeploymentPlan:
     title: DeploymentPlan
@@ -1056,4 +992,3 @@ definitions:
         type: integer
         format: int32
 basePath: /api/v2
-host: 'localhost:8080'

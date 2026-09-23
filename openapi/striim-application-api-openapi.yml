@@ -1,0 +1,692 @@
+openapi: 3.2.0
+info:
+  version: 5.4.0.2-oas3
+  title: Striim TQL Files REST API version 5.4.0.2 Application API
+  description: API for uploading, listing, and deleting TQL files in Striim.
+  contact:
+    name: Striim support
+    url: https://go2.striim.com/request-support-striim
+    email: support@striim.com
+  termsOfService: http://www.striim.com/eula/
+tags:
+- name: Application
+  x-displayName: application
+paths:
+  /applications:
+    servers:
+    - url: http://localhost:8080/api/v2
+    get:
+      description: Retrieves a list of all applications currently in the Striim cluster.
+      summary: list all applications
+      tags:
+      - Application
+      operationId: ApplicationsGet
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: 4wfh9ssfsltq0
+    post:
+      description: 'Creates an application based on the specified template, or template definition using template and property values specified in a JSON object. Get the template for the JSON object using `GET /applications/templates/{templateId}`.
+
+
+        To generate code, provide the template name, a name for the new application, and properties for the source and target on the **Body** tab. For example:
+
+        ```
+
+        {
+
+        "templateId": "database-to-kafka-avro-initialload",
+
+        "applicationName": "ns1.OracleReader_to_DatabaseWriter",
+
+        "sourceParameters": {
+
+        "Username": "myname",
+
+        "Password": "mypassword",
+
+        "Password_encrypted": "false",
+
+        "ConnectionURL": "198.51.100.15:1521:orcl",
+
+        "Tables": "MYSCHEMA.%"},
+
+        "targetParameters": {
+
+        "version": "0.10.0",
+
+        "Mode": "Sync",
+
+        "Topic": "MyTopic",
+
+        "brokerAddress": "198.51.100.55:9092"
+
+        },
+
+        "parserParameters": {},
+
+        "formatterParameters": {"schemaFileName"": "MySchema.avro"}
+
+        }
+
+        ```
+
+        Note that all properties and values must be in double quotes. In this example, parserParameters is blank since OracleReader does not use a parser.
+
+
+        To use a cleartext password, `Password_encrypted` must be added to the template . Alternatively, enter the cleartext password in a source in the Flow Designer, export the application, and copy the encrypted password from the TQL file.'
+      summary: create an application
+      tags:
+      - Application
+      operationId: ApplicationsPost
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationParameters'
+        description: "A JSON object that specifies the template, namespace, application name, and source and target property values to be used to create the application. One of `templateId` **or** `templateDefinition` is required.\n\n#Example JSON\n````json\n  {\n      \"templateId\": \"oracle-to-database-cdc\",\n      \"applicationName\": \"admin.InvoiceDataMigration\",\n      \"sourceParameters\" :{\n         \"Username\":\"miner\",\n         \"Password\":\"miner\",\n         \"ConnectionURL\":\"192.168.15.144:1521:XE\",\n         \"Tables\":\"TPCH.H_REGION;TPCH.H_NATION;TPCH.H_CUSTOMER\",\n         \"FetchSize\":\"10\",\n         \"StartSCN\":\"0\",\n         \"QueueSize\": \"40000\",\n         \"Compression\": \"true\",\n         \"SkipOpenTransactions\": \"false\"\n     },\n      \"targetParameters\": {\n          \"ConnectionURL\":\"jdbc:sqlserver://striimsqldb.database.windows.net:1433;database=sqldbonazure;user=rajesh@striimsqldb;encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;\",\n          \"Username\":\"rajesh\",\n          \"Password\":\"strm123456@\",\n      \"BatchPolicy\": \"EventCount:0,Interval:0\",\n        \"CommitPolicy\": \"EventCount:1,Interval:1\",\n          \"Tables\":\"TPCH.H_NATION,dbo.nation;TPCH.H_REGION,dbo.region;TPCH.H_CUSTOMER,dbo.customer\"\n      }\n  }\n````"
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: mr3jpezyq1zhk
+  /applications/{appFqn}:
+    servers:
+    - url: http://localhost:8080/api/v2
+    get:
+      description: 'Returns details for the specified application.
+
+
+        For **AppFqn**, specify `.` (the fully qualified name), for example, `Samples.PosApp`.'
+      summary: get application details
+      tags:
+      - Application
+      operationId: ApplicationsByAppFqnGet
+      parameters:
+      - name: appFqn
+        in: path
+        required: true
+        description: Fully qualified name of the application
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: App not found
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: 0yyv0xkfbsq8l
+    delete:
+      description: 'Drops the specified application and all the components it contains (equivalent to `DROP . CASCADE`).
+
+
+        For **AppFqn**, specify `.` (the fully qualified name), for example, `Samples.PosApp`.'
+      summary: drop an application
+      tags:
+      - Application
+      operationId: ApplicationsByAppFqnDelete
+      parameters:
+      - name: appFqn
+        in: path
+        required: true
+        description: Fully qualified name of the app
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: App not found
+          content:
+            application/json:
+              schema: {}
+        '412':
+          description: Precondition Failed. App not in correct state to deploy
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: agjwc8af0363n
+  /applications/{appFqn}/deployment:
+    servers:
+    - url: http://localhost:8080/api/v2
+    post:
+      description: 'Deploys the specified application. The AppDeploymentPlan parameter is used only when the app contains multiple flows.
+
+
+        For **AppFqn**, specify `.` (the fully qualified name), for example, `Samples.PosApp`.
+
+
+        To generate code to deploy an application that contains no flows, such as Samples.PosApp, leave the **Body** blank:
+
+
+        `[]`
+
+
+        This is equivalent to `DEPLOY APPLICATION . ON ANY IN default;`.
+
+
+        To specify other deployment options, you must create a flow within the application.
+
+
+        To deploy Samples.MultiLogApp, use the **Body**:
+
+
+        ```
+
+        [{"flowName":"Samples.ApiFlow","deploymentGroupName":"default","deploymentType":"ANY"},
+
+        {"flowName":"Samples.CompanyApiFlow","deploymentGroupName":"default","deploymentType":"ANY"},
+
+        {"flowName":"Samples.ErrorHandling","deploymentGroupName":"default","deploymentType":"ANY"},
+
+        {"flowName":"Samples.ErrorsAndWarnings","deploymentGroupName":"default","deploymentType":"ANY"},
+
+        {"flowName":"Samples.HackerCheck","deploymentGroupName":"default","deploymentType":"ANY"},
+
+        {"flowName":"Samples.InfoFlow","deploymentGroupName":"default","deploymentType":"ANY"},
+
+        {"flowName":"Samples.LargeRTCheck","deploymentGroupName":"default","deploymentType":"ANY"},
+
+        {"flowName":"Samples.MonitorLogs","deploymentGroupName":"default","deploymentType":"ANY"},
+
+        {"flowName":"Samples.ProxyCheck","deploymentGroupName":"default","deploymentType":"ANY"},
+
+        {"flowName":"Samples.UserApiFlow","deploymentGroupName":"default","deploymentType":"ANY"},
+
+        {"flowName":"Samples.WarningHandling","deploymentGroupName":"default","deploymentType":"ANY"},
+
+        {"flowName":"Samples.ZeroContentCheck","deploymentGroupName":"default","deploymentType":"ANY"}]
+
+        ```
+
+        If a flow is in the authentication user''s namespace, you may omit the namespace. `ANY` is equivalent to `ON ONE`.
+
+
+        For more information, see Managing deployment groups.'
+      summary: deploy an application
+      tags:
+      - Application
+      operationId: ApplicationsDeploymentByAppFqnPost
+      parameters:
+      - name: appFqn
+        in: path
+        required: true
+        description: Fully qualified name of the app
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeploymentPlan'
+        description: As of the 3.9.0 release, the format has changed to object type. The earlier format of sub-flows-array is also supported, but may be deprecated in a future release.
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: App not found
+          content:
+            application/json:
+              schema: {}
+        '412':
+          description: Precondition Failed. App not in correct state to deploy
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: 0ge7xz8k7vpxu
+    delete:
+      description: 'Undeploys the specified application.
+
+
+        For **AppFqn**, specify `.` (the fully qualified name), for example, `Samples.PosApp`.'
+      summary: undeploy an application
+      tags:
+      - Application
+      operationId: ApplicationsDeploymentByAppFqnDelete
+      parameters:
+      - name: appFqn
+        in: path
+        required: true
+        description: Fully qualified name of the app
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: App not found
+          content:
+            application/json:
+              schema: {}
+        '412':
+          description: Precondition Failed. App not in correct state to deploy
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: cvddfh2dthlww
+  /applications/{appFqn}/sprint:
+    servers:
+    - url: http://localhost:8080/api/v2
+    post:
+      description: 'Starts the specified deployed application.
+
+
+        For **AppFqn**, specify `.` (the fully qualified name), for example, `Samples.PosApp`.'
+      summary: start an application
+      tags:
+      - Application
+      operationId: ApplicationsSprintByAppFqnPost
+      parameters:
+      - name: appFqn
+        in: path
+        required: true
+        description: Fully qualified name of the app
+        schema:
+          type: string
+      - name: resume
+        in: query
+        required: false
+        description: Set to `true` to resume a crashed application.
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: App not found
+          content:
+            application/json:
+              schema: {}
+        '412':
+          description: Precondition Failed. App not in correct state to deploy
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: 0jig2w0zicgfu
+    delete:
+      description: 'Stops the specified running application.
+
+
+        For **AppFqn**, specify `.` (the fully qualified name), for example, `Samples.PosApp`.'
+      summary: stop an application
+      tags:
+      - Application
+      operationId: ApplicationsSprintByAppFqnDelete
+      parameters:
+      - name: appFqn
+        in: path
+        required: true
+        description: Fully qualified name of the app
+        schema:
+          type: string
+      - name: quiesce
+        in: query
+        required: false
+        description: Set to true to quiesce the application, leave at false to stop normally
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: Application not found
+          content:
+            application/json:
+              schema: {}
+        '412':
+          description: Precondition Failed. App not in correct state to deploy
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: nulhxub55ze6s
+components:
+  schemas:
+    Link:
+      title: Link
+      type: object
+      properties:
+        rel:
+          description: Link relation to object
+          type: string
+        allow:
+          description: The HTTP methods allowed on the href
+          type: string
+        href:
+          description: ''
+          type: string
+      x-stoplight:
+        id: v3uk04wo5n2ct
+    Recovery:
+      title: Recovery
+      type: object
+      properties:
+        enabled:
+          description: ''
+          type: boolean
+        period:
+          description: ''
+          type: integer
+          format: int32
+      x-stoplight:
+        id: y1xti6wgbr4ru
+    ApplicationParameters:
+      title: ApplicationParameters
+      description: The request body for creation of application. It consists of the `templateId` **or** `templateDefinition`, and the source and target parameters as required by the template.
+      type: object
+      properties:
+        templateId:
+          description: Name of the template
+          example: oracle-to-database-cdc
+          type: string
+          minLength: 3
+        templateDefinition:
+          $ref: '#/components/schemas/TemplateDefinition'
+        applicationName:
+          description: Unique fully qualified name for the application. Must be of format namespace.applicationName
+          example: admin.InvoiceDataMigration
+          type: string
+          minLength: 3
+          maxLength: 150
+        applicationSettings:
+          $ref: '#/components/schemas/ApplicationSettings'
+        sourceParameters:
+          description: A valid JSON object which should confirm to the source parameters of the template being used
+          type: object
+        targetParameters:
+          description: A valid JSON object which should confirm to the target parameters of the template being used
+          type: object
+        parserParameters:
+          description: A valid JSON object which should confirm to the parser parameters of the template being used
+          type: object
+        formatterParameters:
+          description: A valid JSON object which should confirm to the formatter parameters of the template being used
+          type: object
+      x-stoplight:
+        id: 9um573d6c8hoc
+    FlowDeploymentPlan:
+      title: FlowDeploymentPlan
+      type: object
+      properties:
+        flowName:
+          description: name of the flow to be deployed
+          example: SourceFlow
+          type: string
+          minLength: 3
+        deploymentGroupName:
+          description: name of deployment group under which to be deployed
+          example: Agent
+          type: string
+          minLength: 3
+        deploymentType:
+          $ref: '#/components/schemas/DeploymentType'
+      x-stoplight:
+        id: 5m1j78iw41oqx
+    DeploymentType:
+      title: DeploymentType
+      example: ANY
+      x-enum-elements:
+      - name: ANY
+        description: ''
+      - name: ONE
+        description: Same as ANY
+      - name: ALL
+        description: ''
+      type: string
+      enum:
+      - ANY
+      - ALL
+      x-stoplight:
+        id: 3p1y2rp3u09sp
+    Application:
+      title: Application
+      type: object
+      properties:
+        namespace:
+          description: namespace under which application is created
+          example: admin
+          type: string
+          minLength: 3
+        name:
+          description: Name of the Striim Application
+          example: OracleToAzureApp
+          type: string
+          minLength: 3
+        status:
+          description: current status of the app
+          example: RUNNING
+          type: string
+        links:
+          description: A link relation that points to "self" and the link to deployment and sprint resources along with allowed methods on that
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+      x-stoplight:
+        id: qgbj8nzb2zm6i
+    TemplateDefinition:
+      title: TemplateDefinition
+      description: Define a dynamic application template
+      type: object
+      properties:
+        sourceAdapter:
+          description: Source Adapter name
+          example: OracleReader
+          type: string
+        formatter:
+          description: Formatter name
+          type: string
+        parser:
+          description: Parser name
+          type: string
+        targetAdapter:
+          description: Target Adapter name
+          example: DatabaseWriter
+          type: string
+      x-stoplight:
+        id: ah95cign75lnt
+    DeploymentPlan:
+      title: DeploymentPlan
+      type: object
+      properties:
+        deploymentGroupName:
+          description: name of deployment group under which to be deployed
+          example: Agent
+          type: string
+          minLength: 3
+        deploymentType:
+          $ref: '#/components/schemas/DeploymentType'
+        flows:
+          title: DeploymentPlan
+          type: array
+          items:
+            $ref: '#/components/schemas/FlowDeploymentPlan'
+      x-stoplight:
+        id: qhto79hv2guv1
+    ApplicationSettings:
+      title: ApplicationSettings
+      type: object
+      properties:
+        recovery:
+          $ref: '#/components/schemas/Recovery'
+        encryption:
+          description: specified whether the application should be created with encryption on
+          example: false
+          type: boolean
+          default: false
+        exceptionHandlers:
+          description: specified the list of exceptions and associated action for this application
+          type: object
+      x-stoplight:
+        id: vta2h4i3jb7ak
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      description: ''
+      name: Authorization
+      in: header
+      x-testValue: ''
+      x-skip-client-authentication: false
+x-stoplight:
+  id: z7fl2mixydrcb
+x-tagGroups:
+- name: Striim TQL Files REST API version 5.4.0.2
+  tags:
+  - tqlfiles
+- name: Striim Application Management REST API version 3.10.3
+  tags:
+  - application
+  - template
+  - applicationMetadata
+  - checkpoint
+  - monitoring
+  - tungsten

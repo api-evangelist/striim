@@ -1,0 +1,134 @@
+openapi: 3.2.0
+info:
+  version: 5.4.0.2-oas3
+  title: Striim TQL Files REST API version 5.4.0.2 Tungsten API
+  description: API for uploading, listing, and deleting TQL files in Striim.
+  contact:
+    name: Striim support
+    url: https://go2.striim.com/request-support-striim
+    email: support@striim.com
+  termsOfService: http://www.striim.com/eula/
+tags:
+- name: tungsten
+  x-displayName: tungsten
+paths:
+  /tungsten:
+    servers:
+    - url: http://localhost:8080/api/v2
+    post:
+      description: 'Executes a console or TQL DDL command. See Console commands and DDL and component reference.
+
+
+        * For the `EXPORT .` command, the TQL for the specified application will be attached to the response. For `EXPORT ALL` the attachment will be a ZIP file.
+
+        * The `HISTORY` command is not supported.
+
+        * When creating an application, all commands from `USE ; CREATE APPLICATION ;` to `END APPLICATION ;` must be included in the same API call.
+
+        * When altering an application, all commands from `ALTER APPLICATION ;` to `ALTER APPLICATION RECOMPILE;` must be included in the same call.
+
+
+        If the command has any output, it will be returned as `output`. For example:
+
+
+        ```
+
+        curl --request POST \
+
+        > --url http://localhost:9080/api/v2/tungsten \
+
+        > --header ''authorization: STRIIM-TOKEN 01eb29d5-75e9-9fb1-9b31-8cae4cf129d6'' \
+
+        > --header ''content-type: text/plain'' \
+
+        > --data ''STATUS Samples.MultiLogApp;''
+
+        [{"command":"STATUS Samples.MultiLogApp","executionStatus":"Success","output":{"applicationName":"MultiLogApp","status":"CREATED"},"responseCode":200}]
+
+        ```
+
+
+        If the command fails, the return will include `failuremessage`. For example:
+
+
+        ```
+
+        url --request POST \
+
+        > --url http://localhost:9080/api/v2/tungsten \
+
+        > --header ''authorization: STRIIM-TOKEN 01eb29d5-75e9-9fb1-9b31-8cae4cf129d6'' \
+
+        > --header ''content-type: text/plain'' \
+
+        > --data ''CREATE NAMESPACE Samples;''
+
+        [{"command":"CREATE NAMESPACE Samples","executionStatus":"Failure","failureMessage":"Namespace Samples already exists","responseCode":400}]
+
+        ```
+
+
+        When importing an application that requires a passphrase, append the passphrase to the end of the URL and specify the file to be uploaded using `--data-binary`, for example:
+
+
+        ```
+
+        url --request POST \
+
+        > --url http://localhost:9080/api/v2/tungsten?passphrase=******** \
+
+        > --header ''authorization: STRIIM-TOKEN 01eb29d5-75e9-9fb1-9b31-8cae4cf129d6'' \
+
+        > --header ''content-type: text/plain'' \
+
+        > --data-binary @MyApp.tql
+
+        ```'
+      summary: execute a console or TQL command
+      tags:
+      - tungsten
+      operationId: TungstenCommandExecution
+      responses:
+        '200':
+          description: Command is executed successfully.
+        '400':
+          description: Compilation of command to be executed failed. Typical reason would be a missing ‘;’. Other reasons would be a missing parameter or using an incorrect keyword.
+        '401':
+          description: Specified authentication token as part of authorization header is invaid or incorrect.
+        '404':
+          description: Most of the commands operate on any of the Striim’s component. This indicates that specified resource/component as part of the command doesn’t exista anymore. Optionally this error code is also returned when requested information isn’t ready for a specified component.
+        '500':
+          description: Internal Server error
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: 5crhuohvbb9se
+components:
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      description: ''
+      name: Authorization
+      in: header
+      x-testValue: ''
+      x-skip-client-authentication: false
+x-stoplight:
+  id: z7fl2mixydrcb
+x-tagGroups:
+- name: Striim TQL Files REST API version 5.4.0.2
+  tags:
+  - tqlfiles
+- name: Striim Application Management REST API version 3.10.3
+  tags:
+  - application
+  - template
+  - applicationMetadata
+  - checkpoint
+  - monitoring
+  - tungsten

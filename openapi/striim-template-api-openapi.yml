@@ -1,0 +1,255 @@
+openapi: 3.2.0
+info:
+  version: 5.4.0.2-oas3
+  title: Striim TQL Files REST API version 5.4.0.2 Template API
+  description: API for uploading, listing, and deleting TQL files in Striim.
+  contact:
+    name: Striim support
+    url: https://go2.striim.com/request-support-striim
+    email: support@striim.com
+  termsOfService: http://www.striim.com/eula/
+tags:
+- name: Template
+  x-displayName: template
+paths:
+  /applications/templates:
+    servers:
+    - url: http://localhost:8080/api/v2
+    get:
+      description: Returns a list of all application templates currently in the Striim cluster. An application template specifies a list of source and target properties to be used when creating an application.
+      summary: list application templates
+      tags:
+      - Template
+      operationId: ApplicationsTemplatesGet
+      responses:
+        '200':
+          description: Success
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: ye5ak2qwmqa7m
+  /applications/templates/definition:
+    servers:
+    - url: http://localhost:8080/api/v2
+    post:
+      description: 'Creates an application template for the specified source, parser (if required), target, and formatter (if required). For example:
+
+
+        ```
+
+        curl --request POST \
+
+        --url http://localhost:9080/api/v2/applications/templates/definition \
+
+        --header ''authorization: STRIIM-TOKEN 01eac2da-9b8a-69a1-9895-9e21505bed40'' \
+
+        --header ''content-type: application/json'' \
+
+        --data ''{"sourceAdapter":"OracleReader","targetAdapter":"BigQueryWriter"}''
+
+        ```
+
+
+        will return a JSON template for an Oracle CDC source and a Google BigQuery target. After you fill in the property values, use the JSON as the body for`POST /applications` to create an application.'
+      summary: create a template
+      tags:
+      - Template
+      operationId: ApplicationsTemplatesTemplateDefinition
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TemplateDefinition'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+      security:
+      - Authorization: []
+      x-stoplight:
+        id: l16hq20t5lh43
+  /applications/templates/{templateId}:
+    servers:
+    - url: http://localhost:8080/api/v2
+    get:
+      description: Returns the type, default value (if any), and other information for each property of the specified template. Use `GET /applications/templates` to get the `templateId` value.
+      summary: get an application template
+      tags:
+      - Template
+      operationId: ApplicationsTemplatesByTemplateIdGet
+      parameters:
+      - name: templateId
+        in: path
+        required: true
+        description: unique name of the template
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Template'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: Template not found
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: yh5udt979qgf6
+components:
+  schemas:
+    TemplateParameter:
+      title: TemplateParameter
+      type: object
+      properties:
+        name:
+          description: name of the parameter
+          example: ConnectionURL
+          type: string
+          minLength: 3
+          maxLength: 200
+        parameterType:
+          $ref: '#/components/schemas/ParameterType'
+        required:
+          description: whether required parameter
+          type: boolean
+        defaultValue:
+          description: Default value to be used if one is not provided. Valid only for non-required parameters.
+          type: object
+      x-stoplight:
+        id: tgdv1pl7xh1ne
+    ParameterType:
+      title: ParameterType
+      example: string
+      x-enum-elements:
+      - name: Enum_string
+        description: ''
+      - name: securestring
+        description: ''
+      - name: Enum_int
+        description: ''
+      - name: Enum_bool
+        description: ''
+      - name: Enum_object
+        description: ''
+      - name: secureObject
+        description: ''
+      - name: array
+        description: ''
+      type: string
+      enum:
+      - string
+      - securestring
+      - int
+      - bool
+      - object
+      - secureObject
+      - array
+      x-stoplight:
+        id: kl4ppqhukujz2
+    TemplateDefinition:
+      title: TemplateDefinition
+      description: Define a dynamic application template
+      type: object
+      properties:
+        sourceAdapter:
+          description: Source Adapter name
+          example: OracleReader
+          type: string
+        formatter:
+          description: Formatter name
+          type: string
+        parser:
+          description: Parser name
+          type: string
+        targetAdapter:
+          description: Target Adapter name
+          example: DatabaseWriter
+          type: string
+      x-stoplight:
+        id: ah95cign75lnt
+    Template:
+      title: Template
+      description: A template acts as a template for integration from a specific source to a specific target. A template defines the list of source and target parameters required.
+      type: object
+      properties:
+        templateId:
+          description: Unique name of the template
+          example: oracle-to-database-cdc
+          type: string
+          minLength: 3
+          maxLength: 200
+        sourceParameters:
+          description: List of Source parameters
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateParameter'
+        targetParameters:
+          description: List of target parameters
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateParameter'
+        formatterParameters:
+          description: List of target parameters
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateParameter'
+        parserParameters:
+          description: List of target parameters
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateParameter'
+      x-stoplight:
+        id: q8lgjlc41hwrq
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      description: ''
+      name: Authorization
+      in: header
+      x-testValue: ''
+      x-skip-client-authentication: false
+x-stoplight:
+  id: z7fl2mixydrcb
+x-tagGroups:
+- name: Striim TQL Files REST API version 5.4.0.2
+  tags:
+  - tqlfiles
+- name: Striim Application Management REST API version 3.10.3
+  tags:
+  - application
+  - template
+  - applicationMetadata
+  - checkpoint
+  - monitoring
+  - tungsten

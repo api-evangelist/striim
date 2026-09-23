@@ -1,0 +1,89 @@
+openapi: 3.2.0
+info:
+  version: 5.4.0.2-oas3
+  title: Striim TQL Files REST API version 5.4.0.2 Checkpoint API
+  description: API for uploading, listing, and deleting TQL files in Striim.
+  contact:
+    name: Striim support
+    url: https://go2.striim.com/request-support-striim
+    email: support@striim.com
+  termsOfService: http://www.striim.com/eula/
+tags:
+- name: checkpoint
+  x-displayName: checkpoint
+paths:
+  /applications/checkpoint/{applicationname}:
+    servers:
+    - url: http://localhost:8080/api/v2
+    get:
+      description: 'Returns restart position and current position of the specified application. For example, Samples.ApplicationName.
+
+
+        For **applicationName**, specify `.` (the fully qualified name), for example, `Samples.PosApp`.'
+      summary: retrieve checkpoint data
+      tags:
+      - checkpoint
+      operationId: ApplicationsApplicationCheckpointByApplicationNameGet
+      parameters:
+      - name: applicationname
+        in: path
+        required: true
+        description: Fully qualified application name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Specified application name is not in fullly qualified format
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: No valid User found for specified authentication token
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: Specified application name is not found or No checkpoint information available yet for the application
+          content:
+            application/json:
+              schema: {}
+        '500':
+          description: Internal Server error
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: dcv3xwhjbm00f
+components:
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      description: ''
+      name: Authorization
+      in: header
+      x-testValue: ''
+      x-skip-client-authentication: false
+x-stoplight:
+  id: z7fl2mixydrcb
+x-tagGroups:
+- name: Striim TQL Files REST API version 5.4.0.2
+  tags:
+  - tqlfiles
+- name: Striim Application Management REST API version 3.10.3
+  tags:
+  - application
+  - template
+  - applicationMetadata
+  - checkpoint
+  - monitoring
+  - tungsten

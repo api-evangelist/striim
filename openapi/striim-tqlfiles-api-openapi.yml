@@ -1,0 +1,348 @@
+openapi: 3.2.0
+info:
+  version: 5.4.0.2-oas3
+  title: Striim TQL Files REST API version 5.4.0.2 Tqlfiles API
+  description: API for uploading, listing, and deleting TQL files in Striim.
+  contact:
+    name: Striim support
+    url: https://go2.striim.com/request-support-striim
+    email: support@striim.com
+  termsOfService: http://www.striim.com/eula/
+tags:
+- name: tqlfiles
+  x-displayName: tqlfiles
+paths:
+  /tqlfiles:
+    servers:
+    - url: http://localhost:9080/api/v2
+    post:
+      description: 'Uploads a TQL file to the user''s home directory on the Striim cluster.
+
+
+        **Requirements:**
+
+        * File must have a `.tql` extension
+
+        * Maximum file size is 50MB
+
+        * File must not be empty
+
+        * Request must be `multipart/form-data`
+
+
+        **Example using curl:**
+
+        ```
+
+        curl --request POST \
+
+        --url http://localhost:9080/api/v2/tqlfiles \
+
+        --header ''authorization: STRIIM-TOKEN 01eb29d5-75e9-9fb1-9b31-8cae4cf129d6'' \
+
+        --form ''file=@/path/to/your-application.tql''
+
+        ```
+
+
+        The file is uploaded to the authenticated user''s upload directory and distributed across the cluster. If a file with the same name already exists, a numeric suffix is added (e.g., `myfile1.tql`, `myfile2.tql`).
+
+
+        **Response example:**
+
+        ```json
+
+        [{"command":"uploadTQLFile","executionStatus":"success","output":"myfile.tql successfully uploaded","responseCode":200}]
+
+        ```'
+      summary: upload a TQL file
+      tags:
+      - tqlfiles
+      operationId: TqlFilesUpload
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  description: The TQL file to upload. Must have a `.tql` extension and be no larger than 50MB.
+                  type: string
+                  format: binary
+              required:
+              - file
+        required: true
+      responses:
+        '200':
+          description: File uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesResponse'
+        '400':
+          description: Bad request - invalid file format, empty file, file too large, or not multipart/form-data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesResponse'
+        '401':
+          description: Unauthorized - invalid or missing authorization token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesResponse'
+        '500':
+          description: Internal server error - failed to create directory or distribute file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesResponse'
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: 0lgufdeuhnos0
+    get:
+      description: 'Retrieves a list of all TQL files in the authenticated user''s upload directory.
+
+
+        **Example using curl:**
+
+        ```
+
+        curl --request GET \
+
+        --url http://localhost:9080/api/v2/tqlfiles \
+
+        --header ''authorization: STRIIM-TOKEN 01eb29d5-75e9-9fb1-9b31-8cae4cf129d6''
+
+        ```
+
+
+        **Response example:**
+
+        ```json
+
+        [{"command":"listUploads","executionStatus":"success","output":[{"name":"myfile.tql","size":1234,"lastModified":1704067200000}],"responseCode":200}]
+
+        ```'
+      summary: list uploaded TQL files
+      tags:
+      - tqlfiles
+      operationId: TqlFilesList
+      responses:
+        '200':
+          description: Success - returns list of files
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesListResponse'
+        '401':
+          description: Unauthorized - invalid or missing authorization token, or no permission to access location
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesResponse'
+        '500':
+          description: Internal server error - failed to determine home directory
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesResponse'
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: 7iphcxpjwx5hb
+  /tqlfiles/{name}:
+    servers:
+    - url: http://localhost:9080/api/v2
+    delete:
+      description: 'Deletes the specified TQL file from the authenticated user''s upload directory.
+
+
+        For **name**, specify the file name (e.g., `myfile.tql`).
+
+
+        **Example using curl:**
+
+        ```
+
+        curl --request DELETE \
+
+        --url http://localhost:9080/api/v2/tqlfiles/myfile.tql \
+
+        --header ''authorization: STRIIM-TOKEN 01eb29d5-75e9-9fb1-9b31-8cae4cf129d6''
+
+        ```
+
+
+        **Response example:**
+
+        ```json
+
+        [{"command":"deleteUpload","executionStatus":"success","output":"myfile.tql successfully deleted","responseCode":200}]
+
+        ```'
+      summary: delete a TQL file
+      tags:
+      - tqlfiles
+      operationId: TqlFilesDelete
+      parameters:
+      - name: name
+        in: path
+        required: true
+        description: Name of the TQL file to delete (e.g., myfile.tql)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: File deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesResponse'
+        '400':
+          description: Bad request - file name is required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesResponse'
+        '401':
+          description: Unauthorized - invalid or missing authorization token, or no permission to delete files
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesResponse'
+        '404':
+          description: File not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesResponse'
+        '500':
+          description: Internal server error - failed to delete file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TqlFilesResponse'
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: 70tkrgxc6z7g2
+components:
+  schemas:
+    TqlFilesListResponse:
+      title: TqlFilesListResponse
+      type: array
+      items:
+        type: object
+        properties:
+          command:
+            description: The command that was executed
+            example: listUploads
+            type: string
+          executionStatus:
+            description: Status of the command execution
+            example: success
+            type: string
+          output:
+            description: Array of file information
+            type: array
+            items:
+              $ref: '#/components/schemas/TqlFileInfo'
+          responseCode:
+            description: HTTP response code
+            example: 200
+            type: integer
+            format: int32
+          failureMessage:
+            description: Error message when executionStatus is failure
+            type: string
+      x-stoplight:
+        id: khcvntrvskj7q
+    TqlFileInfo:
+      title: TqlFileInfo
+      type: object
+      properties:
+        name:
+          description: Name of the TQL file
+          example: myfile.tql
+          type: string
+        size:
+          description: Size of the file in bytes
+          example: 1234
+          type: integer
+          format: int64
+        lastModified:
+          description: Last modified timestamp in milliseconds since epoch
+          example: 1704067200000
+          type: integer
+          format: int64
+      x-stoplight:
+        id: 64g5y781vbqfu
+    TqlFilesResponse:
+      title: TqlFilesResponse
+      type: array
+      items:
+        type: object
+        properties:
+          command:
+            description: The command that was executed
+            example: uploadTQLFile
+            type: string
+          executionStatus:
+            description: Status of the command execution (success or failure)
+            example: success
+            type: string
+          output:
+            description: The output of the command (string message or object depending on command)
+            type: object
+          responseCode:
+            description: HTTP response code
+            example: 200
+            type: integer
+            format: int32
+          failureMessage:
+            description: Error message when executionStatus is failure
+            type: string
+      x-stoplight:
+        id: qa5ssnbtqh7rs
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      description: ''
+      name: Authorization
+      in: header
+      x-testValue: ''
+      x-skip-client-authentication: false
+x-stoplight:
+  id: z7fl2mixydrcb
+x-tagGroups:
+- name: Striim TQL Files REST API version 5.4.0.2
+  tags:
+  - tqlfiles
+- name: Striim Application Management REST API version 3.10.3
+  tags:
+  - application
+  - template
+  - applicationMetadata
+  - checkpoint
+  - monitoring
+  - tungsten

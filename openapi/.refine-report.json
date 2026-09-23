@@ -1,0 +1,38 @@
+{
+  "provider": "striim",
+  "sources": [
+    "_original/striim-5402-oas3.yml"
+  ],
+  "outputs": [
+    "striim-application-api-openapi.yml",
+    "striim-applicationmetadata-api-openapi.yml",
+    "striim-checkpoint-api-openapi.yml",
+    "striim-monitoring-api-openapi.yml",
+    "striim-template-api-openapi.yml",
+    "striim-tqlfiles-api-openapi.yml",
+    "striim-tungsten-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "5 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "striim-5402-oas3.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/striim-tql-files-rest-api-5-4-0-2-openapi.yml: archived document superseded by a larger archived document",
+    "_original/striim-application-management-rest-api-3-10-3-openapi.yml: archived document superseded by a larger archived document",
+    "_original/striim-application-management-rest-api-3-10-1-openapi.yml: archived document superseded by a larger archived document",
+    "_original/striim-3103.oas2.yml: archived document superseded by a larger archived document",
+    "_original/striim-3101.oas2.yml: archived document superseded by a larger archived document",
+    "striim-application-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "striim-applicationmetadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "striim-checkpoint-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "striim-monitoring-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "striim-template-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "striim-tqlfiles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "striim-tungsten-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

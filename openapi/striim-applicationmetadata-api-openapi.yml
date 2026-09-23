@@ -1,0 +1,218 @@
+openapi: 3.2.0
+info:
+  version: 5.4.0.2-oas3
+  title: Striim TQL Files REST API version 5.4.0.2 Application…
+  description: API for uploading, listing, and deleting TQL files in Striim.
+  contact:
+    name: Striim support
+    url: https://go2.striim.com/request-support-striim
+    email: support@striim.com
+  termsOfService: http://www.striim.com/eula/
+tags:
+- name: applicationMetadata
+  x-displayName: applicationMetadata
+paths:
+  /applications/applicationMetadata/olm/{oracleReaderName}:
+    servers:
+    - url: http://localhost:8080/api/v2
+    get:
+      description: 'Retrieves file lineage for the specified OracleReader source.
+
+
+        For **oracleReaderName**, specify `.` (the fully qualified name), for example, `ns1.OracleCDCSource`.
+
+
+        For more information, see File lineage in Oracle.
+
+
+        The old endpoint `/applications/applicationMetadata/{oracleReaderName}` is also supported but may be removed in a future release.'
+      summary: retrieve OracleReader file lineage
+      tags:
+      - applicationMetadata
+      operationId: ApplicationsApplicationMetadataByOracleReaderNameGet
+      parameters:
+      - name: oracleReaderName
+        in: path
+        required: true
+        description: Fully qualified component name
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OracleLineageMetadataObject'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: Oracle Reader not found
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: uclt7eqleppls
+  /applications/applicationMetadata/flm/{fileReaderName}:
+    servers:
+    - url: http://localhost:8080/api/v2
+    get:
+      description: 'Retrieves file lineage data for the specified source or target. (For OracleReader sources, use `GET /applications/applicationMetadata/olm/{oracleReaderName}`).
+
+
+        For **fileReaderName**, specify `.` (the fully qualified name), for example, `ns1.S3WriterTarget`.
+
+
+        Optionally, for **startTimeStamp** or **endTimeStamp**, specify a time in milliseconds, for example, `1580473268534`.
+
+
+        Optionally, for **status**, specify `CREATED`, `COMPLETED`, `PROCESSING`, or `CRASHED` to retrieve data only for files with that status.
+
+
+        For more information, see File lineage in readers and writers.'
+      summary: retrieve source or target file lineage
+      tags:
+      - applicationMetadata
+      operationId: ApplicationsApplicationMetadataByFileReaderNameGet
+      parameters:
+      - name: fileReaderName
+        in: path
+        required: true
+        description: Fully qualified component name
+        schema:
+          type: string
+      - name: startTimeStamp
+        in: query
+        required: false
+        description: A timestamp in milliseconds that specifies a start time
+        schema:
+          type: string
+      - name: endTimeStamp
+        in: query
+        required: false
+        description: A timestamp in milliseconds that specifies an end time
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        description: status of the files to be queried
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileLineageMetadataObject'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema: {}
+        '404':
+          description: File Reader not found
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Authorization: []
+      x-unitTests: []
+      x-operation-settings:
+        CollectParameters: false
+        AllowDynamicQueryParameters: false
+        AllowDynamicFormParameters: false
+        IsMultiContentStreaming: false
+      x-stoplight:
+        id: gibbkg4xl671m
+components:
+  schemas:
+    OracleLineageMetadataObject:
+      title: OracleLineageMetadataObject
+      type: object
+      properties:
+        fileName:
+          description: fileName
+          type: string
+        status:
+          description: status of the file
+          type: string
+        directoryName:
+          description: directoryName
+          type: string
+        fileCreationTime:
+          description: the time at which the archive log file was created
+          type: integer
+          format: int32
+        numberOfEvents:
+          description: total number of events
+          type: integer
+          format: int32
+        threadId:
+          description: thread ID
+          type: string
+        firstChangeNumber:
+          description: Start SCN
+          type: string
+        lastChangeNumber:
+          description: End SCN
+          type: string
+      x-stoplight:
+        id: obwlyc0cc0kl9
+    FileLineageMetadataObject:
+      title: FileLineageMetadataObject
+      type: object
+      properties:
+        fileName:
+          description: fileName
+          type: string
+        status:
+          description: status of the file
+          type: string
+        directoryName:
+          description: directoryName
+          type: string
+        fileCreationTime:
+          description: the time at which the archive log file was created
+          type: integer
+          format: int32
+        numberOfEvents:
+          description: total number of events
+          type: integer
+          format: int32
+      x-stoplight:
+        id: a241dlrept53e
+  securitySchemes:
+    Authorization:
+      type: apiKey
+      description: ''
+      name: Authorization
+      in: header
+      x-testValue: ''
+      x-skip-client-authentication: false
+x-stoplight:
+  id: z7fl2mixydrcb
+x-tagGroups:
+- name: Striim TQL Files REST API version 5.4.0.2
+  tags:
+  - tqlfiles
+- name: Striim Application Management REST API version 3.10.3
+  tags:
+  - application
+  - template
+  - applicationMetadata
+  - checkpoint
+  - monitoring
+  - tungsten
