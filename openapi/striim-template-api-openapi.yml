@@ -128,26 +128,39 @@ paths:
         id: yh5udt979qgf6
 components:
   schemas:
-    TemplateParameter:
-      title: TemplateParameter
+    Template:
+      title: Template
+      description: A template acts as a template for integration from a specific source to a specific target. A template defines the list of source and target parameters required.
       type: object
       properties:
-        name:
-          description: name of the parameter
-          example: ConnectionURL
+        templateId:
+          description: Unique name of the template
+          example: oracle-to-database-cdc
           type: string
           minLength: 3
           maxLength: 200
-        parameterType:
-          $ref: '#/components/schemas/ParameterType'
-        required:
-          description: whether required parameter
-          type: boolean
-        defaultValue:
-          description: Default value to be used if one is not provided. Valid only for non-required parameters.
-          type: object
+        sourceParameters:
+          description: List of Source parameters
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateParameter'
+        targetParameters:
+          description: List of target parameters
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateParameter'
+        formatterParameters:
+          description: List of target parameters
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateParameter'
+        parserParameters:
+          description: List of target parameters
+          type: array
+          items:
+            $ref: '#/components/schemas/TemplateParameter'
       x-stoplight:
-        id: tgdv1pl7xh1ne
+        id: q8lgjlc41hwrq
     ParameterType:
       title: ParameterType
       example: string
@@ -198,39 +211,26 @@ components:
           type: string
       x-stoplight:
         id: ah95cign75lnt
-    Template:
-      title: Template
-      description: A template acts as a template for integration from a specific source to a specific target. A template defines the list of source and target parameters required.
+    TemplateParameter:
+      title: TemplateParameter
       type: object
       properties:
-        templateId:
-          description: Unique name of the template
-          example: oracle-to-database-cdc
+        name:
+          description: name of the parameter
+          example: ConnectionURL
           type: string
           minLength: 3
           maxLength: 200
-        sourceParameters:
-          description: List of Source parameters
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateParameter'
-        targetParameters:
-          description: List of target parameters
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateParameter'
-        formatterParameters:
-          description: List of target parameters
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateParameter'
-        parserParameters:
-          description: List of target parameters
-          type: array
-          items:
-            $ref: '#/components/schemas/TemplateParameter'
+        parameterType:
+          $ref: '#/components/schemas/ParameterType'
+        required:
+          description: whether required parameter
+          type: boolean
+        defaultValue:
+          description: Default value to be used if one is not provided. Valid only for non-required parameters.
+          type: object
       x-stoplight:
-        id: q8lgjlc41hwrq
+        id: tgdv1pl7xh1ne
   securitySchemes:
     Authorization:
       type: apiKey

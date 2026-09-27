@@ -492,21 +492,40 @@ paths:
         id: nulhxub55ze6s
 components:
   schemas:
-    Link:
-      title: Link
+    FlowDeploymentPlan:
+      title: FlowDeploymentPlan
       type: object
       properties:
-        rel:
-          description: Link relation to object
+        flowName:
+          description: name of the flow to be deployed
+          example: SourceFlow
           type: string
-        allow:
-          description: The HTTP methods allowed on the href
+          minLength: 3
+        deploymentGroupName:
+          description: name of deployment group under which to be deployed
+          example: Agent
           type: string
-        href:
-          description: ''
-          type: string
+          minLength: 3
+        deploymentType:
+          $ref: '#/components/schemas/DeploymentType'
       x-stoplight:
-        id: v3uk04wo5n2ct
+        id: 5m1j78iw41oqx
+    ApplicationSettings:
+      title: ApplicationSettings
+      type: object
+      properties:
+        recovery:
+          $ref: '#/components/schemas/Recovery'
+        encryption:
+          description: specified whether the application should be created with encryption on
+          example: false
+          type: boolean
+          default: false
+        exceptionHandlers:
+          description: specified the list of exceptions and associated action for this application
+          type: object
+      x-stoplight:
+        id: vta2h4i3jb7ak
     Recovery:
       title: Recovery
       type: object
@@ -554,40 +573,6 @@ components:
           type: object
       x-stoplight:
         id: 9um573d6c8hoc
-    FlowDeploymentPlan:
-      title: FlowDeploymentPlan
-      type: object
-      properties:
-        flowName:
-          description: name of the flow to be deployed
-          example: SourceFlow
-          type: string
-          minLength: 3
-        deploymentGroupName:
-          description: name of deployment group under which to be deployed
-          example: Agent
-          type: string
-          minLength: 3
-        deploymentType:
-          $ref: '#/components/schemas/DeploymentType'
-      x-stoplight:
-        id: 5m1j78iw41oqx
-    DeploymentType:
-      title: DeploymentType
-      example: ANY
-      x-enum-elements:
-      - name: ANY
-        description: ''
-      - name: ONE
-        description: Same as ANY
-      - name: ALL
-        description: ''
-      type: string
-      enum:
-      - ANY
-      - ALL
-      x-stoplight:
-        id: 3p1y2rp3u09sp
     Application:
       title: Application
       type: object
@@ -613,6 +598,37 @@ components:
             $ref: '#/components/schemas/Link'
       x-stoplight:
         id: qgbj8nzb2zm6i
+    Link:
+      title: Link
+      type: object
+      properties:
+        rel:
+          description: Link relation to object
+          type: string
+        allow:
+          description: The HTTP methods allowed on the href
+          type: string
+        href:
+          description: ''
+          type: string
+      x-stoplight:
+        id: v3uk04wo5n2ct
+    DeploymentType:
+      title: DeploymentType
+      example: ANY
+      x-enum-elements:
+      - name: ANY
+        description: ''
+      - name: ONE
+        description: Same as ANY
+      - name: ALL
+        description: ''
+      type: string
+      enum:
+      - ANY
+      - ALL
+      x-stoplight:
+        id: 3p1y2rp3u09sp
     TemplateDefinition:
       title: TemplateDefinition
       description: Define a dynamic application template
@@ -652,22 +668,6 @@ components:
             $ref: '#/components/schemas/FlowDeploymentPlan'
       x-stoplight:
         id: qhto79hv2guv1
-    ApplicationSettings:
-      title: ApplicationSettings
-      type: object
-      properties:
-        recovery:
-          $ref: '#/components/schemas/Recovery'
-        encryption:
-          description: specified whether the application should be created with encryption on
-          example: false
-          type: boolean
-          default: false
-        exceptionHandlers:
-          description: specified the list of exceptions and associated action for this application
-          type: object
-      x-stoplight:
-        id: vta2h4i3jb7ak
   securitySchemes:
     Authorization:
       type: apiKey
