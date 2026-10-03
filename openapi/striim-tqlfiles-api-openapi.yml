@@ -275,26 +275,6 @@ components:
             type: string
       x-stoplight:
         id: qa5ssnbtqh7rs
-    TqlFileInfo:
-      title: TqlFileInfo
-      type: object
-      properties:
-        name:
-          description: Name of the TQL file
-          example: myfile.tql
-          type: string
-        size:
-          description: Size of the file in bytes
-          example: 1234
-          type: integer
-          format: int64
-        lastModified:
-          description: Last modified timestamp in milliseconds since epoch
-          example: 1704067200000
-          type: integer
-          format: int64
-      x-stoplight:
-        id: 64g5y781vbqfu
     TqlFilesListResponse:
       title: TqlFilesListResponse
       type: array
@@ -324,6 +304,26 @@ components:
             type: string
       x-stoplight:
         id: khcvntrvskj7q
+    TqlFileInfo:
+      title: TqlFileInfo
+      type: object
+      properties:
+        name:
+          description: Name of the TQL file
+          example: myfile.tql
+          type: string
+        size:
+          description: Size of the file in bytes
+          example: 1234
+          type: integer
+          format: int64
+        lastModified:
+          description: Last modified timestamp in milliseconds since epoch
+          example: 1704067200000
+          type: integer
+          format: int64
+      x-stoplight:
+        id: 64g5y781vbqfu
   securitySchemes:
     Authorization:
       type: apiKey

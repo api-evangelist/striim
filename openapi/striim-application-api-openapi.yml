@@ -492,6 +492,84 @@ paths:
         id: nulhxub55ze6s
 components:
   schemas:
+    Application:
+      title: Application
+      type: object
+      properties:
+        namespace:
+          description: namespace under which application is created
+          example: admin
+          type: string
+          minLength: 3
+        name:
+          description: Name of the Striim Application
+          example: OracleToAzureApp
+          type: string
+          minLength: 3
+        status:
+          description: current status of the app
+          example: RUNNING
+          type: string
+        links:
+          description: A link relation that points to "self" and the link to deployment and sprint resources along with allowed methods on that
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+      x-stoplight:
+        id: qgbj8nzb2zm6i
+    TemplateDefinition:
+      title: TemplateDefinition
+      description: Define a dynamic application template
+      type: object
+      properties:
+        sourceAdapter:
+          description: Source Adapter name
+          example: OracleReader
+          type: string
+        formatter:
+          description: Formatter name
+          type: string
+        parser:
+          description: Parser name
+          type: string
+        targetAdapter:
+          description: Target Adapter name
+          example: DatabaseWriter
+          type: string
+      x-stoplight:
+        id: ah95cign75lnt
+    ApplicationSettings:
+      title: ApplicationSettings
+      type: object
+      properties:
+        recovery:
+          $ref: '#/components/schemas/Recovery'
+        encryption:
+          description: specified whether the application should be created with encryption on
+          example: false
+          type: boolean
+          default: false
+        exceptionHandlers:
+          description: specified the list of exceptions and associated action for this application
+          type: object
+      x-stoplight:
+        id: vta2h4i3jb7ak
+    DeploymentType:
+      title: DeploymentType
+      example: ANY
+      x-enum-elements:
+      - name: ANY
+        description: ''
+      - name: ONE
+        description: Same as ANY
+      - name: ALL
+        description: ''
+      type: string
+      enum:
+      - ANY
+      - ALL
+      x-stoplight:
+        id: 3p1y2rp3u09sp
     FlowDeploymentPlan:
       title: FlowDeploymentPlan
       type: object
@@ -510,22 +588,6 @@ components:
           $ref: '#/components/schemas/DeploymentType'
       x-stoplight:
         id: 5m1j78iw41oqx
-    ApplicationSettings:
-      title: ApplicationSettings
-      type: object
-      properties:
-        recovery:
-          $ref: '#/components/schemas/Recovery'
-        encryption:
-          description: specified whether the application should be created with encryption on
-          example: false
-          type: boolean
-          default: false
-        exceptionHandlers:
-          description: specified the list of exceptions and associated action for this application
-          type: object
-      x-stoplight:
-        id: vta2h4i3jb7ak
     Recovery:
       title: Recovery
       type: object
@@ -539,6 +601,21 @@ components:
           format: int32
       x-stoplight:
         id: y1xti6wgbr4ru
+    Link:
+      title: Link
+      type: object
+      properties:
+        rel:
+          description: Link relation to object
+          type: string
+        allow:
+          description: The HTTP methods allowed on the href
+          type: string
+        href:
+          description: ''
+          type: string
+      x-stoplight:
+        id: v3uk04wo5n2ct
     ApplicationParameters:
       title: ApplicationParameters
       description: The request body for creation of application. It consists of the `templateId` **or** `templateDefinition`, and the source and target parameters as required by the template.
@@ -573,83 +650,6 @@ components:
           type: object
       x-stoplight:
         id: 9um573d6c8hoc
-    Application:
-      title: Application
-      type: object
-      properties:
-        namespace:
-          description: namespace under which application is created
-          example: admin
-          type: string
-          minLength: 3
-        name:
-          description: Name of the Striim Application
-          example: OracleToAzureApp
-          type: string
-          minLength: 3
-        status:
-          description: current status of the app
-          example: RUNNING
-          type: string
-        links:
-          description: A link relation that points to "self" and the link to deployment and sprint resources along with allowed methods on that
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-      x-stoplight:
-        id: qgbj8nzb2zm6i
-    Link:
-      title: Link
-      type: object
-      properties:
-        rel:
-          description: Link relation to object
-          type: string
-        allow:
-          description: The HTTP methods allowed on the href
-          type: string
-        href:
-          description: ''
-          type: string
-      x-stoplight:
-        id: v3uk04wo5n2ct
-    DeploymentType:
-      title: DeploymentType
-      example: ANY
-      x-enum-elements:
-      - name: ANY
-        description: ''
-      - name: ONE
-        description: Same as ANY
-      - name: ALL
-        description: ''
-      type: string
-      enum:
-      - ANY
-      - ALL
-      x-stoplight:
-        id: 3p1y2rp3u09sp
-    TemplateDefinition:
-      title: TemplateDefinition
-      description: Define a dynamic application template
-      type: object
-      properties:
-        sourceAdapter:
-          description: Source Adapter name
-          example: OracleReader
-          type: string
-        formatter:
-          description: Formatter name
-          type: string
-        parser:
-          description: Parser name
-          type: string
-        targetAdapter:
-          description: Target Adapter name
-          example: DatabaseWriter
-          type: string
-      x-stoplight:
-        id: ah95cign75lnt
     DeploymentPlan:
       title: DeploymentPlan
       type: object

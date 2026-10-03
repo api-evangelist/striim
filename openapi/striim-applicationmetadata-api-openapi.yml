@@ -139,6 +139,29 @@ paths:
         id: gibbkg4xl671m
 components:
   schemas:
+    FileLineageMetadataObject:
+      title: FileLineageMetadataObject
+      type: object
+      properties:
+        fileName:
+          description: fileName
+          type: string
+        status:
+          description: status of the file
+          type: string
+        directoryName:
+          description: directoryName
+          type: string
+        fileCreationTime:
+          description: the time at which the archive log file was created
+          type: integer
+          format: int32
+        numberOfEvents:
+          description: total number of events
+          type: integer
+          format: int32
+      x-stoplight:
+        id: a241dlrept53e
     OracleLineageMetadataObject:
       title: OracleLineageMetadataObject
       type: object
@@ -171,29 +194,6 @@ components:
           type: string
       x-stoplight:
         id: obwlyc0cc0kl9
-    FileLineageMetadataObject:
-      title: FileLineageMetadataObject
-      type: object
-      properties:
-        fileName:
-          description: fileName
-          type: string
-        status:
-          description: status of the file
-          type: string
-        directoryName:
-          description: directoryName
-          type: string
-        fileCreationTime:
-          description: the time at which the archive log file was created
-          type: integer
-          format: int32
-        numberOfEvents:
-          description: total number of events
-          type: integer
-          format: int32
-      x-stoplight:
-        id: a241dlrept53e
   securitySchemes:
     Authorization:
       type: apiKey

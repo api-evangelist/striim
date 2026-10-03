@@ -161,6 +161,47 @@ components:
             $ref: '#/components/schemas/TemplateParameter'
       x-stoplight:
         id: q8lgjlc41hwrq
+    TemplateParameter:
+      title: TemplateParameter
+      type: object
+      properties:
+        name:
+          description: name of the parameter
+          example: ConnectionURL
+          type: string
+          minLength: 3
+          maxLength: 200
+        parameterType:
+          $ref: '#/components/schemas/ParameterType'
+        required:
+          description: whether required parameter
+          type: boolean
+        defaultValue:
+          description: Default value to be used if one is not provided. Valid only for non-required parameters.
+          type: object
+      x-stoplight:
+        id: tgdv1pl7xh1ne
+    TemplateDefinition:
+      title: TemplateDefinition
+      description: Define a dynamic application template
+      type: object
+      properties:
+        sourceAdapter:
+          description: Source Adapter name
+          example: OracleReader
+          type: string
+        formatter:
+          description: Formatter name
+          type: string
+        parser:
+          description: Parser name
+          type: string
+        targetAdapter:
+          description: Target Adapter name
+          example: DatabaseWriter
+          type: string
+      x-stoplight:
+        id: ah95cign75lnt
     ParameterType:
       title: ParameterType
       example: string
@@ -190,47 +231,6 @@ components:
       - array
       x-stoplight:
         id: kl4ppqhukujz2
-    TemplateDefinition:
-      title: TemplateDefinition
-      description: Define a dynamic application template
-      type: object
-      properties:
-        sourceAdapter:
-          description: Source Adapter name
-          example: OracleReader
-          type: string
-        formatter:
-          description: Formatter name
-          type: string
-        parser:
-          description: Parser name
-          type: string
-        targetAdapter:
-          description: Target Adapter name
-          example: DatabaseWriter
-          type: string
-      x-stoplight:
-        id: ah95cign75lnt
-    TemplateParameter:
-      title: TemplateParameter
-      type: object
-      properties:
-        name:
-          description: name of the parameter
-          example: ConnectionURL
-          type: string
-          minLength: 3
-          maxLength: 200
-        parameterType:
-          $ref: '#/components/schemas/ParameterType'
-        required:
-          description: whether required parameter
-          type: boolean
-        defaultValue:
-          description: Default value to be used if one is not provided. Valid only for non-required parameters.
-          type: object
-      x-stoplight:
-        id: tgdv1pl7xh1ne
   securitySchemes:
     Authorization:
       type: apiKey
