@@ -128,6 +128,56 @@ paths:
         id: yh5udt979qgf6
 components:
   schemas:
+    TemplateDefinition:
+      title: TemplateDefinition
+      description: Define a dynamic application template
+      type: object
+      properties:
+        sourceAdapter:
+          description: Source Adapter name
+          example: OracleReader
+          type: string
+        formatter:
+          description: Formatter name
+          type: string
+        parser:
+          description: Parser name
+          type: string
+        targetAdapter:
+          description: Target Adapter name
+          example: DatabaseWriter
+          type: string
+      x-stoplight:
+        id: ah95cign75lnt
+    ParameterType:
+      title: ParameterType
+      example: string
+      x-enum-elements:
+      - name: Enum_string
+        description: ''
+      - name: securestring
+        description: ''
+      - name: Enum_int
+        description: ''
+      - name: Enum_bool
+        description: ''
+      - name: Enum_object
+        description: ''
+      - name: secureObject
+        description: ''
+      - name: array
+        description: ''
+      type: string
+      enum:
+      - string
+      - securestring
+      - int
+      - bool
+      - object
+      - secureObject
+      - array
+      x-stoplight:
+        id: kl4ppqhukujz2
     Template:
       title: Template
       description: A template acts as a template for integration from a specific source to a specific target. A template defines the list of source and target parameters required.
@@ -181,56 +231,6 @@ components:
           type: object
       x-stoplight:
         id: tgdv1pl7xh1ne
-    TemplateDefinition:
-      title: TemplateDefinition
-      description: Define a dynamic application template
-      type: object
-      properties:
-        sourceAdapter:
-          description: Source Adapter name
-          example: OracleReader
-          type: string
-        formatter:
-          description: Formatter name
-          type: string
-        parser:
-          description: Parser name
-          type: string
-        targetAdapter:
-          description: Target Adapter name
-          example: DatabaseWriter
-          type: string
-      x-stoplight:
-        id: ah95cign75lnt
-    ParameterType:
-      title: ParameterType
-      example: string
-      x-enum-elements:
-      - name: Enum_string
-        description: ''
-      - name: securestring
-        description: ''
-      - name: Enum_int
-        description: ''
-      - name: Enum_bool
-        description: ''
-      - name: Enum_object
-        description: ''
-      - name: secureObject
-        description: ''
-      - name: array
-        description: ''
-      type: string
-      enum:
-      - string
-      - securestring
-      - int
-      - bool
-      - object
-      - secureObject
-      - array
-      x-stoplight:
-        id: kl4ppqhukujz2
   securitySchemes:
     Authorization:
       type: apiKey

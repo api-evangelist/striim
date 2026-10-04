@@ -248,33 +248,26 @@ paths:
         id: 70tkrgxc6z7g2
 components:
   schemas:
-    TqlFilesResponse:
-      title: TqlFilesResponse
-      type: array
-      items:
-        type: object
-        properties:
-          command:
-            description: The command that was executed
-            example: uploadTQLFile
-            type: string
-          executionStatus:
-            description: Status of the command execution (success or failure)
-            example: success
-            type: string
-          output:
-            description: The output of the command (string message or object depending on command)
-            type: object
-          responseCode:
-            description: HTTP response code
-            example: 200
-            type: integer
-            format: int32
-          failureMessage:
-            description: Error message when executionStatus is failure
-            type: string
+    TqlFileInfo:
+      title: TqlFileInfo
+      type: object
+      properties:
+        name:
+          description: Name of the TQL file
+          example: myfile.tql
+          type: string
+        size:
+          description: Size of the file in bytes
+          example: 1234
+          type: integer
+          format: int64
+        lastModified:
+          description: Last modified timestamp in milliseconds since epoch
+          example: 1704067200000
+          type: integer
+          format: int64
       x-stoplight:
-        id: qa5ssnbtqh7rs
+        id: 64g5y781vbqfu
     TqlFilesListResponse:
       title: TqlFilesListResponse
       type: array
@@ -304,26 +297,33 @@ components:
             type: string
       x-stoplight:
         id: khcvntrvskj7q
-    TqlFileInfo:
-      title: TqlFileInfo
-      type: object
-      properties:
-        name:
-          description: Name of the TQL file
-          example: myfile.tql
-          type: string
-        size:
-          description: Size of the file in bytes
-          example: 1234
-          type: integer
-          format: int64
-        lastModified:
-          description: Last modified timestamp in milliseconds since epoch
-          example: 1704067200000
-          type: integer
-          format: int64
+    TqlFilesResponse:
+      title: TqlFilesResponse
+      type: array
+      items:
+        type: object
+        properties:
+          command:
+            description: The command that was executed
+            example: uploadTQLFile
+            type: string
+          executionStatus:
+            description: Status of the command execution (success or failure)
+            example: success
+            type: string
+          output:
+            description: The output of the command (string message or object depending on command)
+            type: object
+          responseCode:
+            description: HTTP response code
+            example: 200
+            type: integer
+            format: int32
+          failureMessage:
+            description: Error message when executionStatus is failure
+            type: string
       x-stoplight:
-        id: 64g5y781vbqfu
+        id: qa5ssnbtqh7rs
   securitySchemes:
     Authorization:
       type: apiKey

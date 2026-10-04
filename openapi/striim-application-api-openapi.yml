@@ -492,6 +492,37 @@ paths:
         id: nulhxub55ze6s
 components:
   schemas:
+    DeploymentPlan:
+      title: DeploymentPlan
+      type: object
+      properties:
+        deploymentGroupName:
+          description: name of deployment group under which to be deployed
+          example: Agent
+          type: string
+          minLength: 3
+        deploymentType:
+          $ref: '#/components/schemas/DeploymentType'
+        flows:
+          title: DeploymentPlan
+          type: array
+          items:
+            $ref: '#/components/schemas/FlowDeploymentPlan'
+      x-stoplight:
+        id: qhto79hv2guv1
+    Recovery:
+      title: Recovery
+      type: object
+      properties:
+        enabled:
+          description: ''
+          type: boolean
+        period:
+          description: ''
+          type: integer
+          format: int32
+      x-stoplight:
+        id: y1xti6wgbr4ru
     Application:
       title: Application
       type: object
@@ -517,43 +548,21 @@ components:
             $ref: '#/components/schemas/Link'
       x-stoplight:
         id: qgbj8nzb2zm6i
-    TemplateDefinition:
-      title: TemplateDefinition
-      description: Define a dynamic application template
+    Link:
+      title: Link
       type: object
       properties:
-        sourceAdapter:
-          description: Source Adapter name
-          example: OracleReader
+        rel:
+          description: Link relation to object
           type: string
-        formatter:
-          description: Formatter name
+        allow:
+          description: The HTTP methods allowed on the href
           type: string
-        parser:
-          description: Parser name
-          type: string
-        targetAdapter:
-          description: Target Adapter name
-          example: DatabaseWriter
+        href:
+          description: ''
           type: string
       x-stoplight:
-        id: ah95cign75lnt
-    ApplicationSettings:
-      title: ApplicationSettings
-      type: object
-      properties:
-        recovery:
-          $ref: '#/components/schemas/Recovery'
-        encryption:
-          description: specified whether the application should be created with encryption on
-          example: false
-          type: boolean
-          default: false
-        exceptionHandlers:
-          description: specified the list of exceptions and associated action for this application
-          type: object
-      x-stoplight:
-        id: vta2h4i3jb7ak
+        id: v3uk04wo5n2ct
     DeploymentType:
       title: DeploymentType
       example: ANY
@@ -570,6 +579,22 @@ components:
       - ALL
       x-stoplight:
         id: 3p1y2rp3u09sp
+    ApplicationSettings:
+      title: ApplicationSettings
+      type: object
+      properties:
+        recovery:
+          $ref: '#/components/schemas/Recovery'
+        encryption:
+          description: specified whether the application should be created with encryption on
+          example: false
+          type: boolean
+          default: false
+        exceptionHandlers:
+          description: specified the list of exceptions and associated action for this application
+          type: object
+      x-stoplight:
+        id: vta2h4i3jb7ak
     FlowDeploymentPlan:
       title: FlowDeploymentPlan
       type: object
@@ -588,34 +613,6 @@ components:
           $ref: '#/components/schemas/DeploymentType'
       x-stoplight:
         id: 5m1j78iw41oqx
-    Recovery:
-      title: Recovery
-      type: object
-      properties:
-        enabled:
-          description: ''
-          type: boolean
-        period:
-          description: ''
-          type: integer
-          format: int32
-      x-stoplight:
-        id: y1xti6wgbr4ru
-    Link:
-      title: Link
-      type: object
-      properties:
-        rel:
-          description: Link relation to object
-          type: string
-        allow:
-          description: The HTTP methods allowed on the href
-          type: string
-        href:
-          description: ''
-          type: string
-      x-stoplight:
-        id: v3uk04wo5n2ct
     ApplicationParameters:
       title: ApplicationParameters
       description: The request body for creation of application. It consists of the `templateId` **or** `templateDefinition`, and the source and target parameters as required by the template.
@@ -650,24 +647,27 @@ components:
           type: object
       x-stoplight:
         id: 9um573d6c8hoc
-    DeploymentPlan:
-      title: DeploymentPlan
+    TemplateDefinition:
+      title: TemplateDefinition
+      description: Define a dynamic application template
       type: object
       properties:
-        deploymentGroupName:
-          description: name of deployment group under which to be deployed
-          example: Agent
+        sourceAdapter:
+          description: Source Adapter name
+          example: OracleReader
           type: string
-          minLength: 3
-        deploymentType:
-          $ref: '#/components/schemas/DeploymentType'
-        flows:
-          title: DeploymentPlan
-          type: array
-          items:
-            $ref: '#/components/schemas/FlowDeploymentPlan'
+        formatter:
+          description: Formatter name
+          type: string
+        parser:
+          description: Parser name
+          type: string
+        targetAdapter:
+          description: Target Adapter name
+          example: DatabaseWriter
+          type: string
       x-stoplight:
-        id: qhto79hv2guv1
+        id: ah95cign75lnt
   securitySchemes:
     Authorization:
       type: apiKey
