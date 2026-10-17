@@ -492,62 +492,6 @@ paths:
         id: nulhxub55ze6s
 components:
   schemas:
-    DeploymentPlan:
-      title: DeploymentPlan
-      type: object
-      properties:
-        deploymentGroupName:
-          description: name of deployment group under which to be deployed
-          example: Agent
-          type: string
-          minLength: 3
-        deploymentType:
-          $ref: '#/components/schemas/DeploymentType'
-        flows:
-          title: DeploymentPlan
-          type: array
-          items:
-            $ref: '#/components/schemas/FlowDeploymentPlan'
-      x-stoplight:
-        id: qhto79hv2guv1
-    Recovery:
-      title: Recovery
-      type: object
-      properties:
-        enabled:
-          description: ''
-          type: boolean
-        period:
-          description: ''
-          type: integer
-          format: int32
-      x-stoplight:
-        id: y1xti6wgbr4ru
-    Application:
-      title: Application
-      type: object
-      properties:
-        namespace:
-          description: namespace under which application is created
-          example: admin
-          type: string
-          minLength: 3
-        name:
-          description: Name of the Striim Application
-          example: OracleToAzureApp
-          type: string
-          minLength: 3
-        status:
-          description: current status of the app
-          example: RUNNING
-          type: string
-        links:
-          description: A link relation that points to "self" and the link to deployment and sprint resources along with allowed methods on that
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-      x-stoplight:
-        id: qgbj8nzb2zm6i
     Link:
       title: Link
       type: object
@@ -563,22 +507,6 @@ components:
           type: string
       x-stoplight:
         id: v3uk04wo5n2ct
-    DeploymentType:
-      title: DeploymentType
-      example: ANY
-      x-enum-elements:
-      - name: ANY
-        description: ''
-      - name: ONE
-        description: Same as ANY
-      - name: ALL
-        description: ''
-      type: string
-      enum:
-      - ANY
-      - ALL
-      x-stoplight:
-        id: 3p1y2rp3u09sp
     ApplicationSettings:
       title: ApplicationSettings
       type: object
@@ -613,6 +541,62 @@ components:
           $ref: '#/components/schemas/DeploymentType'
       x-stoplight:
         id: 5m1j78iw41oqx
+    Recovery:
+      title: Recovery
+      type: object
+      properties:
+        enabled:
+          description: ''
+          type: boolean
+        period:
+          description: ''
+          type: integer
+          format: int32
+      x-stoplight:
+        id: y1xti6wgbr4ru
+    DeploymentPlan:
+      title: DeploymentPlan
+      type: object
+      properties:
+        deploymentGroupName:
+          description: name of deployment group under which to be deployed
+          example: Agent
+          type: string
+          minLength: 3
+        deploymentType:
+          $ref: '#/components/schemas/DeploymentType'
+        flows:
+          title: DeploymentPlan
+          type: array
+          items:
+            $ref: '#/components/schemas/FlowDeploymentPlan'
+      x-stoplight:
+        id: qhto79hv2guv1
+    Application:
+      title: Application
+      type: object
+      properties:
+        namespace:
+          description: namespace under which application is created
+          example: admin
+          type: string
+          minLength: 3
+        name:
+          description: Name of the Striim Application
+          example: OracleToAzureApp
+          type: string
+          minLength: 3
+        status:
+          description: current status of the app
+          example: RUNNING
+          type: string
+        links:
+          description: A link relation that points to "self" and the link to deployment and sprint resources along with allowed methods on that
+          type: array
+          items:
+            $ref: '#/components/schemas/Link'
+      x-stoplight:
+        id: qgbj8nzb2zm6i
     ApplicationParameters:
       title: ApplicationParameters
       description: The request body for creation of application. It consists of the `templateId` **or** `templateDefinition`, and the source and target parameters as required by the template.
@@ -668,6 +652,22 @@ components:
           type: string
       x-stoplight:
         id: ah95cign75lnt
+    DeploymentType:
+      title: DeploymentType
+      example: ANY
+      x-enum-elements:
+      - name: ANY
+        description: ''
+      - name: ONE
+        description: Same as ANY
+      - name: ALL
+        description: ''
+      type: string
+      enum:
+      - ANY
+      - ALL
+      x-stoplight:
+        id: 3p1y2rp3u09sp
   securitySchemes:
     Authorization:
       type: apiKey
